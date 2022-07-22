@@ -110,6 +110,7 @@ Frecuentemente encontraremos llaves en la misma linea que la condición. Esto no
 ### definitivamente así no
 
 ```c
+// esto es terrible y no sera aceptado.
 if (x < 0)
     {
     printf("x is negative\n");
