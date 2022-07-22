@@ -6,8 +6,8 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta
-            name="description"
-            content="Documentation for the Kittn API"
+            name="pmd docs"
+            content="documentacion para programacion con memoria dinamica"
         >
     <title>API Reference</title>
 
@@ -295,7 +295,7 @@
     </script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;c&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -303,12 +303,9 @@
       </span>
     </a>
     <div class="toc-wrapper">
-      <img src="images/logo-1e815a84.png" class="logo" alt="" />
+      <img src="images/logo-5ac488f6.png" class="logo" alt="" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
+              <a href="#" data-language-name="c">c</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -316,10 +313,10 @@
         <ul class="search-results"></ul>
       <ul id="toc" class="toc-list-h1">
           <li>
-            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+            <a href="#conferencias" class="toc-h1 toc-link" data-title="Conferencias">Conferencias</a>
           </li>
           <li>
-            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+            <a href="#ejercicios" class="toc-h1 toc-link" data-title="Ejercicios">Ejercicios</a>
           </li>
           <li>
             <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
@@ -336,39 +333,55 @@
               </ul>
           </li>
           <li>
-            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+            <a href="#guia-de-estilo" class="toc-h1 toc-link" data-title="Guía de estilo">Guía de estilo</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#longitud-de-linea" class="toc-h2 toc-link" data-title="Longitud de línea">Longitud de línea</a>
+                  </li>
+                  <li>
+                    <a href="#comentarios" class="toc-h2 toc-link" data-title="Comentarios">Comentarios</a>
+                  </li>
+                  <li>
+                    <a href="#estructuras-condicionales" class="toc-h2 toc-link" data-title="estructuras condicionales">estructuras condicionales</a>
+                  </li>
+                  <li>
+                    <a href="#switches" class="toc-h2 toc-link" data-title="Switches">Switches</a>
+                  </li>
+                  <li>
+                    <a href="#functions" class="toc-h2 toc-link" data-title="Functions">Functions</a>
+                  </li>
+                  <li>
+                    <a href="#indentation" class="toc-h2 toc-link" data-title="Indentation">Indentation</a>
+                  </li>
+                  <li>
+                    <a href="#loops" class="toc-h2 toc-link" data-title="Loops">Loops</a>
+                  </li>
+                  <li>
+                    <a href="#pointers" class="toc-h2 toc-link" data-title="Pointers">Pointers</a>
+                  </li>
+                  <li>
+                    <a href="#variables" class="toc-h2 toc-link" data-title="Variables">Variables</a>
+                  </li>
+                  <li>
+                    <a href="#structures" class="toc-h2 toc-link" data-title="Structures">Structures</a>
+                  </li>
+              </ul>
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
             <li><a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a></li>
+            <li><a href='https://creativecommons.org/licenses/by-nc-sa/4.0/'>Licence</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
-
-<p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-
-<p>This example API documentation page was created with <a href="https://github.com/slatedocs/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
-<h1 id='authentication'>Authentication</h1>
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
+        <h1 id='conferencias'>Conferencias</h1>
+<p>Aqui van las notas y comentarios de cada una de las sesiones teoricas.</p>
+<h1 id='ejercicios'>Ejercicios</h1><div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"Hello world!"</span><span class="p">);</span>
+<span class="p">}</span>
 </code></pre></div>
 <blockquote>
 <p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
@@ -526,72 +539,281 @@ Remember — a happy kitten is an authenticated kitten!
 <td>The ID of the kitten to delete</td>
 </tr>
 </tbody></table>
-<h1 id='errors'>Errors</h1>
-<aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
+<h1 id='guia-de-estilo'>Guía de estilo</h1>
+<p>Esta guía de estilo es esencialmente una traducción de la guía de Harvard con ligeros cambios.</p>
+
+<p>No existe una “única” forma correcta de formatear código. Pero definitivamente existen <em>varias</em> formas de hacerlo mal. Durante el curso se pedirá que todos los entregables respeten las reglas de estilo aquí dispuestas (similar a como muchas empresas como AirBnB tienen lineamientos de estilo obligatorios). El objetivo es generar código fuente con estilos consistentes independientemente del programador.</p>
+<h2 id='longitud-de-linea'>Longitud de línea</h2><div class="highlight"><pre class="highlight c tab-c"><code><span class="c1">// Notese como esta caja de codigo requiere que el usuario use scroll.</span>
+
+<span class="c1">// These next lines of code first prompt the user to give two integer values and then multiplies those two integer values together so they can be used later in the program</span>
+<span class="kt">int</span> <span class="n">first_collected_integer_value_from_user</span> <span class="o">=</span> <span class="n">get_int</span><span class="p">(</span><span class="s">"Integer please: "</span><span class="p">);</span>
+<span class="kt">int</span> <span class="n">second_collected_integer_value_from_user</span> <span class="o">=</span> <span class="n">get_int</span><span class="p">(</span><span class="s">"Another integer please: "</span><span class="p">);</span>
+<span class="kt">int</span> <span class="n">product_of_the_two_integer_values_from_user</span> <span class="o">=</span> <span class="n">first_collected_integer_value_from_user</span> <span class="o">*</span> <span class="n">second_collected_integer_value_from_user</span><span class="p">;</span>
+</code></pre></div>
+<p>Por convenciones históricas, la longitud máxima de una línea de código será de 80 caracteres. </p>
+
+<p>Por decisiones de diseño de IBM, inicialmente los monitores tenían la capacidad de renderizar 24 líneas de texto cada una con hasta 80 caracteres. Ahora es evidentemente obsoleto pero el límite de 80 caracteres es aún una restricción frecuente para evitar <code>line-wraps</code> o tener barras de <code>scroll</code>.  En cualquier forma, si necesitas más de 80 caracteres para una sola instrucción es posible que necesites pensar en tu esquema de nombres de variables, o reconsiderar el diseño general de tu solución.</p>
+
+<p>En otros lenguajes (javascript en particular) resulta complicado respetar este límite y otras reglas de estilo aplican (i.e segmentar una instrucción con saltos de linea <code>\n</code>)</p>
+<h2 id='comentarios'>Comentarios</h2>
+<p>El objetivo de los comentarios es que el código fuente sea más legible. Es importante recalcar que los comentarios ayudan no solo a otros programadores, ¡ayudan también al autor inicial! Cuando pasan horas, días, semanas o años después de que se implementó algo y se quiere recordar alguna decisión de diseño o detalle importante es más fácil si se deja un <strong>breve</strong> recordatorio en lenguaje natural. Pocos y pobres comentarios no resultan de ayuda, demasiados comentarios caen en la redundancia (o son resultado de implementaciones malas que requieren profundas explicaciones). Cada programador tendrá que decidir cuál es el balance correcto. Un inicio es comentar cada vez que se necesite responder alguna de estas preguntas:</p>
+
+<ol>
+<li>¿Que hace este bloque?</li>
+<li>¿Porque implemente este bloque de esta forma?</li>
+</ol>
+<h3 id='en-linea'>en linea</h3><div class="highlight"><pre class="highlight c tab-c"><code><span class="c1">// Convert Fahrenheit to Celsius</span>
+<span class="kt">float</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">5</span><span class="p">.</span><span class="mi">0</span> <span class="o">/</span> <span class="mi">9</span><span class="p">.</span><span class="mi">0</span> <span class="o">*</span> <span class="p">(</span><span class="n">f</span> <span class="o">-</span> <span class="mi">32</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+</code></pre></div>
+<p>Para los comentarios dentro de funciones, usa comentarios <code>inline</code> y mantenlos <strong>breves</strong> (i.e una sola línea), de otra forma interferirían con la lectura del código fuente. Escribe los comentarios en la línea inmediatamente superior a la pieza de código que se está describiendo. Recuerda dejar un espacio después del inicio del comentario <code>//</code>.</p>
+
+<aside class="warning">
+  No mezcles codigo y comentario en la misma linea! i.e
+ <code>int foo = 12; //asigna un valor al entero </code>
 </aside>
+<h3 id='en-funciones'>en funciones</h3><div class="highlight"><pre class="highlight c tab-c"><code><span class="c1">// Returns the square of n</span>
+<span class="kt">int</span> <span class="nf">square</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Las funciones son perfectas candidatas para breves comentarios significativos: resulta util que cada función tenga justo antes de su <strong>implementación</strong> una breve descripción de que hace dicha subrutina. Generalmente no es necesario comentar <code>main</code>.</p>
 
-<p>The Kittn API uses the following error codes:</p>
+<aside class="notice">
+  No es necesario comentar el comportamiento de ciclos de repeticion.
+  como <code>for</code> o <code>while</code>
+</aside>
+<h3 id='en-archivos'>en archivos</h3><div class="highlight"><pre class="highlight c tab-c"><code><span class="c1">//</span>
+<span class="c1">// Created by Josean Camarena on 07/07/22.</span>
+<span class="c1">// Implemented by: $STUDENT$ </span>
+<span class="c1">// Sorts a given collection with various algorithms.</span>
+<span class="c1">// </span>
+</code></pre></div>
+<p>Al principio de cada archivo <code>.c</code> o <code>.h</code> resulta útil agregar la información de autor y fecha con una breve descripción sobre que hace la librería.</p>
+<h2 id='estructuras-condicionales'>estructuras condicionales</h2>
+<p>La guia de estilo pretende resaltar el contenido de los bloques condicionales, y clarificar la expresión de la condicional.</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"x is positive</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"x is negative</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"x is zero</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><h3 id='las-estructuras-condicionales-tienen-que-respetar'>Las estructuras condicionales tienen que respetar</h3>
+<ul>
+<li>las llaves se alinean correctamente, <em>cada una en su propia linea</em>, haciendo enfasis en lo que contiene cada bloque de codigo. </li>
+<li>cada <code>if</code> tiene un espacio antes de abrir el parentesis de la expresión condicional.</li>
+<li>cada llamada a <code>printf</code> esta correctamente indentada.</li>
+<li>existe un espacio separando <code>&lt;</code> y <code>&gt;</code> de los valores a comparar.</li>
+<li>No se tiene espacio inmedatamente despues de abrir <code>(</code> parentesis o inmediatamente antes de <code>)</code> cerrarlo.</li>
+</ul>
 
-<table><thead>
-<tr>
-<th>Error Code</th>
-<th>Meaning</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>400</td>
-<td>Bad Request -- Your request is invalid.</td>
-</tr>
-<tr>
-<td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
-</tr>
-<tr>
-<td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
-</tr>
-<tr>
-<td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
-</tr>
-</tbody></table>
+<aside class="notice">
+ Aunque la indentación tradicional de <code>c</code> son de 4 espacios, se permite tener indentación de 2 espacios siempre y cuando seamos <strong>consistentes</strong>
+</aside>
+<h3 id='sobre-la-apertura-de-llaves'>sobre la apertura de llaves</h3><div class="highlight"><pre class="highlight c tab-c"><code><span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"x is negative</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"x is negative</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Frecuentemente encontraremos llaves en la misma linea que la condición. Esto no es recomendado pero si se desea sera permitido.</p>
+<h3 id='definitivamente-asi-no'>definitivamente así no</h3><div class="highlight"><pre class="highlight c tab-c"><code><span class="c1">// esto es terrible y no sera aceptado.</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"x is negative</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="k">else</span>
+    <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"x is negative</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div>
+<p>Esto es terrible.</p>
+<h2 id='switches'>Switches</h2>
+<p>Declare a <code>switch</code> as follows:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="k">switch</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">case</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"n is -1</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
 
+    <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"n is 1</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="nl">default:</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"n is neither -1 nor 1</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Notice how:</p>
+
+<ul>
+<li>each curly brace is on its own line;</li>
+<li>there&#39;s a single space after <code>switch</code>;</li>
+<li>there isn&#39;t any space immediately after each <code>(</code> or immediately before each <code>)</code>;</li>
+<li>the switch&#39;s cases are indented with 4 spaces;</li>
+<li>the cases&#39; bodies are indented further with 4 spaces; and</li>
+<li>each <code>case</code> (including <code>default</code>) ends with a <code>break</code>.</li>
+</ul>
+<h2 id='functions'>Functions</h2>
+<p>In accordance with <a href="http://en.wikipedia.org/wiki/C99">C99</a>, be sure to declare <code>main</code> with:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<p>or, if using the CS50 Library, with:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="cp">#include</span> <span class="cpf">&lt;cs50.h&gt;</span><span class="cp">
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">string</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<p>or with:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<p>or even with:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<p>Do not declare <code>main</code> with:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<p>or with:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">void</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<p>or with:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<p>As for your own functions, be sure to define them similiarly, with each curly brace on its own line and with the return type on the same line as the function&#39;s name, just as we&#39;ve done with <code>main</code>.</p>
+<h2 id='indentation'>Indentation</h2>
+<p>Indent your code four spaces at a time to make clear which blocks of code are inside of others. If you use your keyboard&#39;s Tab key to do so, be sure that your text editor&#39;s configured to convert tabs (<code>\t</code>) to four spaces, else your code may not print or display properly on someone else&#39;s computer, since <code>\t</code> renders differently in different editors. (If using <a href="https://ide.cs50.io/">CS50 IDE</a>, it&#39;s fine to use Tab for indentation, rather than hitting your keyboard&#39;s space bar repeatedly, since we&#39;ve preconfigured it to convert <code>\t</code> to four spaces.)</p>
+
+<p>Here&#39;s some nicely indented code:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="c1">// Print command-line arguments one per line</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">argc</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"%c</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><h2 id='loops'>Loops</h2><h3 id='for'>for</h3>
+<p>Whenever you need temporary variables for iteration, use <code>i</code>, then <code>j</code>, then <code>k</code>, unless more specific names would make your code more readable:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">LIMIT</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">LIMIT</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">LIMIT</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// Do something</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>If you need more than three variables for iteration, it might be time to rethink your design!</p>
+<h3 id='while'>while</h3>
+<p>Declare <code>while</code> loops as follows:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="k">while</span> <span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Do something</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Notice how:</p>
+
+<ul>
+<li>each curly brace is on its own line;</li>
+<li>there&#39;s a single space after <code>while</code>;</li>
+<li>there isn&#39;t any space immediately after the <code>(</code> or immediately before the <code>)</code>; and</li>
+<li>the loop&#39;s body (a comment in this case) is indented with 4 spaces.</li>
+</ul>
+<h3 id='do-while'>do ... while</h3>
+<p>Declare <code>do ... while</code> loops as follows:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="k">do</span>
+<span class="p">{</span>
+    <span class="c1">// Do something</span>
+<span class="p">}</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">condition</span><span class="p">);</span>
+</code></pre></div>
+<p>Notice how:</p>
+
+<ul>
+<li>each curly brace is on its own line;</li>
+<li>there&#39;s a single space after <code>while</code>;</li>
+<li>there isn&#39;t any space immediately after the <code>(</code> or immediately before the <code>)</code>; and</li>
+<li>the loop&#39;s body (a comment in this case) is indented with 4 spaces.</li>
+</ul>
+<h2 id='pointers'>Pointers</h2>
+<p>When declaring a pointer, write the <code>*</code> next to the variable, as in:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+</code></pre></div>
+<p>Don&#39;t write it next to the type, as in:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">int</span><span class="o">*</span> <span class="n">p</span><span class="p">;</span>
+</code></pre></div><h2 id='variables'>Variables</h2>
+<p>Because CS50 uses <a href="http://en.wikipedia.org/wiki/C99">C99</a>, do not define all of your variables at the very top of your functions but, rather, when and where you actually need them. Moreover, scope your variables as tightly as possible. For instance, if <code>i</code> is only needed for the sake of a loop, declare <code>i</code> within the loop itself:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">LIMIT</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%i</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Though it&#39;s fine to use variables like <code>i</code>, <code>j</code>, and <code>k</code> for iteration, most of your variables should be more specifically named. If you&#39;re summing some values, for instance, call your variable <code>sum</code>. If your variable&#39;s name warrants two words (e.g., <code>is_ready</code>), put an underscore between them, a convention popular in C though less so in other languages.</p>
+
+<p>If declaring multiple variables of the same type at once, it&#39;s fine to declare them together, as in:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">int</span> <span class="n">quarters</span><span class="p">,</span> <span class="n">dimes</span><span class="p">,</span> <span class="n">nickels</span><span class="p">,</span> <span class="n">pennies</span><span class="p">;</span>
+</code></pre></div>
+<p>Just don&#39;t initialize some but not others, as in:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">int</span> <span class="n">quarters</span><span class="p">,</span> <span class="n">dimes</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nickels</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">,</span> <span class="n">pennies</span><span class="p">;</span>
+</code></pre></div>
+<p>Also take care to declare pointers separately from non-pointers, as in:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+</code></pre></div>
+<p>Don&#39;t declare pointers on the same line as non-pointers, as in:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">;</span>
+</code></pre></div><h2 id='structures'>Structures</h2>
+<p>Declare a <code>struct</code> as a type as follows, with each curly brace on its own line and members indented therein, with the type&#39;s name also on its own line:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="k">typedef</span> <span class="k">struct</span>
+<span class="p">{</span>
+    <span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+    <span class="n">string</span> <span class="n">dorm</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">student</span><span class="p">;</span>
+</code></pre></div>
+<p>If the <code>struct</code> contains as a member a pointer to another such <code>struct</code>, declare the <code>struct</code> as having a name identical to the type, without using underscores:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="k">typedef</span> <span class="k">struct</span> <span class="n">node</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">node</span><span class="p">;</span>
+</code></pre></div>
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
+                <a href="#" data-language-name="c">c</a>
           </div>
       </div>
     </div>
