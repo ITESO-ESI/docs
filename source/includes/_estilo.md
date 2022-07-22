@@ -1,61 +1,46 @@
 # Guía de estilo
 
-There's no one, right way to stylize code. But there are definitely a lot of wrong (or, at least, bad ways). Even so, CS50 does ask that you adhere to the conventions below so that we can reliably analyze your code's style. Similarly do companies typically adopt their own, company-wide conventions for style.
+Esta guía de estilo es esencialmente una traducción de la guía de Harvard con ligeros cambios.
 
-## Line Length
+No existe una “única” forma correcta de formatear código. Pero definitivamente existen *varias* formas de hacerlo mal. Durante el curso se pedirá que todos los entregables respeten las reglas de estilo aquí dispuestas (similar a como muchas empresas como AirBnB tienen lineamientos de estilo obligatorios). El objetivo es generar código fuente con estilos consistentes independientemente del programador.
 
-By convention the maximum length of a line of code is 80 characters long in C, with that being historically grounded in standard-sized monitors on older computer terminals, which could display 24 lines vertically and 80 characters horizontally. Though modern technology has obsoleted the need to keep lines capped at 80 characters, it is still a guideline that should be considered a "soft stop," and a line of 100 characters should really be the longest you write in C, else readers will generally need to scroll. If you need more than 100 characters, it may be time to rethink either your variable names or your overall design!
+## Longitud de línea
 
 ```c
+// Notese como esta caja de codigo requiere que el usuario use scroll.
+
 // These next lines of code first prompt the user to give two integer values and then multiplies those two integer values together so they can be used later in the program
 int first_collected_integer_value_from_user = get_int("Integer please: ");
 int second_collected_integer_value_from_user = get_int("Another integer please: ");
 int product_of_the_two_integer_values_from_user = first_collected_integer_value_from_user * second_collected_integer_value_from_user;
 ```
+Por convenciones históricas, la longitud máxima de una línea de código será de 80 caracteres. 
 
-In other languages, particularly JavaScript, it is significantly more difficult to constrain lines to a maximum length; there, your goal should instead be to break up lines (as via `\n`) in locations that maximize readability and clarity.
+Por decisiones de diseño de IBM, inicialmente los monitores tenían la capacidad de renderizar 24 líneas de texto cada una con hasta 80 caracteres. Ahora es evidentemente obsoleto pero el límite de 80 caracteres es aún una restricción frecuente para evitar `line-wraps` o tener barras de `scroll`.  En cualquier forma, si necesitas más de 80 caracteres para una sola instrucción es posible que necesites pensar en tu esquema de nombres de variables, o reconsiderar el diseño general de tu solución.
 
-## Comments
+En otros lenguajes (javascript en particular) resulta complicado respetar este límite y otras reglas de estilo aplican (i.e segmentar una instrucción con saltos de linea `\n`)
 
-Comments make code more readable, not only for others (e.g., your TF) but also for you, especially when hours, days, weeks, months, or years pass between writing and reading your own code. Commenting too little is bad. Commenting too much is bad. Where's the sweet spot? Commenting every few lines of code (i.e., interesting blocks) is a decent guideline. Try to write comments that address one or both of these questions:
+## Comentarios
 
-1. What does this block do?
-1. Why did I implement this block in this way?
+El objetivo de los comentarios es que el código fuente sea más legible. Es importante recalcar que los comentarios ayudan no solo a otros programadores, ¡ayudan también al autor inicial! Cuando pasan horas, días, semanas o años después de que se implementó algo y se quiere recordar alguna decisión de diseño o detalle importante es más fácil si se deja un **breve** recordatorio en lenguaje natural. Pocos y pobres comentarios no resultan de ayuda, demasiados comentarios caen en la redundancia (o son resultado de implementaciones malas que requieren profundas explicaciones). Cada programador tendrá que decidir cuál es el balance correcto. Un inicio es comentar cada vez que se necesite responder alguna de estas preguntas:
 
-Within functions, use "inline comments" and keep them short (e.g., one line), else it becomes difficult to distinguish comments from code, even with [syntax highlighting](http://en.wikipedia.org/wiki/Syntax_highlighting). Place the comment above the line(s) to which it applies. No need to write in full sentences, but do capitalize the comment's first word (unless it's the name of a function, variable, or the like), and do leave one space between the `//` and your comment's first character, as in:
+1. ¿Que hace este bloque?
+2. ¿Porque implemente este bloque de esta forma?
+
+### en linea
 
 ```c
 // Convert Fahrenheit to Celsius
 float c = 5.0 / 9.0 * (f - 32.0);
 ```
+Para los comentarios dentro de funciones, usa comentarios `inline` y mantenlos **breves** (i.e una sola línea), de otra forma interferirían con la lectura del código fuente. Escribe los comentarios en la línea inmediatamente superior a la pieza de código que se está describiendo. Recuerda dejar un espacio después del inicio del comentario `//`.
 
-In other words, don't do this:
+<aside class="warning">
+  No mezcles codigo y comentario en la misma linea! i.e
+ <code>int foo = 12; //asigna un valor al entero </code>
+</aside>
 
-```c
-//Convert Fahrenheit to Celsius
-float c = 5.0 / 9.0 * (f - 32.0);
-```
-
-Or this:
-
-```c
-// convert Fahrenheit to Celsius
-float c = 5.0 / 9.0 * (f - 32.0);
-```
-
-Or this:
-
-```c
-float c = 5.0 / 9.0 * (f - 32.0); // Convert Fahrenheit to Celsius
-```
-
-Atop your .c and .h files should be a comment that summarize what your program (or that particular file) does, as in:
-
-```c
-// Says hello to the world
-```
-
-Atop each of your functions (except, perhaps, `main`), meanwhile, should be a comment that summarizes what your function is doing, as in:
+### en funciones
 
 ```c
 // Returns the square of n
@@ -64,10 +49,27 @@ int square(int n)
     return n * n;
 }
 ```
+Las funciones son perfectas candidatas para breves comentarios significativos: resulta util que cada función tenga justo antes de su **implementación** una breve descripción de que hace dicha subrutina. Generalmente no es necesario comentar `main`.
 
-## Conditions
+<aside class="notice">
+  No es necesario comentar el comportamiento de ciclos de repeticion.
+  como <code>for</code> o <code>while</code>
+</aside>
 
-Conditions should be styled as follows:
+### en archivos
+
+```c
+//
+// Created by Josean Camarena on 07/07/22.
+// Implemented by: $STUDENT$ 
+// Sorts a given collection with various algorithms.
+// 
+```
+Al principio de cada archivo `.c` o `.h` resulta útil agregar la información de autor y fecha con una breve descripción sobre que hace la librería.
+
+## estructuras condicionales
+
+La guia de estilo pretende resaltar el contenido de los bloques condicionales, y clarificar la expresión de la condicional.
 
 ```c
 if (x > 0)
@@ -83,17 +85,19 @@ else
     printf("x is zero\n");
 }
 ```
+### Las estructuras condicionales tienen que respetar
 
-Notice how:
+- las llaves se alinean correctamente, *cada una en su propia linea*, haciendo enfasis en lo que contiene cada bloque de codigo. 
+- cada `if` tiene un espacio antes de abrir el parentesis de la expresión condicional.
+- cada llamada a `printf` esta correctamente indentada.
+- existe un espacio separando `<` y `>` de los valores a comparar.
+- No se tiene espacio inmedatamente despues de abrir `(` parentesis o inmediatamente antes de `)` cerrarlo.
 
-- the curly braces line up nicely, each on its own line, making perfectly clear what's inside the branch;
-- there's a single space after each `if`;
-- each call to `printf` is indented with 4 spaces;
-- there are single spaces around the `>` and around the `<`; and
-- there isn't any space immediately after each `(` or immediately before each `)`.
+<aside class="notice">
+ Aunque la indentación tradicional de <code>c</code> son de 4 espacios, se permite tener indentación de 2 espacios siempre y cuando seamos <strong>consistentes</strong>
+</aside>
 
-To save space, some programmers like to keep the first curly brace on the same line as the condition itself, but we don't recommend, as it's harder to read, so don't do this:
-
+### sobre la apertura de llaves 
 ```c
 if (x < 0) {
     printf("x is negative\n");
@@ -101,8 +105,9 @@ if (x < 0) {
     printf("x is negative\n");
 }
 ```
+Frecuentemente encontraremos llaves en la misma linea que la condición. Esto no es recomendado pero si se desea sera permitido.
 
-And definitely don't do this:
+### definitivamente así no
 
 ```c
 if (x < 0)
@@ -114,6 +119,7 @@ else
     printf("x is negative\n");
     }
 ```
+Esto es terrible.
 
 ## Switches
 
