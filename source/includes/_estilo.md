@@ -2,12 +2,12 @@
 
 Esta guía de estilo es esencialmente una traducción de la guía de Harvard con ligeros cambios.
 
-No existe una “única” forma correcta de formatear código. Pero definitivamente existen *varias* formas de hacerlo mal. Durante el curso se pedirá que todos los entregables respeten las reglas de estilo aquí dispuestas (similar a como muchas empresas como AirBnB tienen lineamientos de estilo obligatorios). El objetivo es generar código fuente con estilos consistentes independientemente del programador.
+No existe una “única” forma correcta de formatear código. Pero definitivamente existen *varias* formas de hacerlo mal. Durante el curso se pedirá que todos los entregables respeten las reglas de estilo aquí dispuestas (similar a como muchas empresas tienen lineamientos de estilo obligatorios). El objetivo es generar código fuente con estilos consistentes independientemente del programador.
 
 ## Longitud de línea
 
 ```c
-// Notese como esta caja de codigo requiere que el usuario use scroll.
+// Nótese como esta caja de código requiere que el usuario use scroll.
 
 // These next lines of code first prompt the user to give two integer values and then multiplies those two integer values together so they can be used later in the program
 int first_collected_integer_value_from_user = get_int("Integer please: ");
@@ -16,7 +16,7 @@ int product_of_the_two_integer_values_from_user = first_collected_integer_value_
 ```
 Por convenciones históricas, la longitud máxima de una línea de código será de 80 caracteres. 
 
-Por decisiones de diseño de IBM, inicialmente los monitores tenían la capacidad de renderizar 24 líneas de texto cada una con hasta 80 caracteres. Ahora es evidentemente obsoleto pero el límite de 80 caracteres es aún una restricción frecuente para evitar `line-wraps` o tener barras de `scroll`.  En cualquier forma, si necesitas más de 80 caracteres para una sola instrucción es posible que necesites pensar en tu esquema de nombres de variables, o reconsiderar el diseño general de tu solución.
+Por decisiones de diseño de IBM, inicialmente los monitores tenían la capacidad de renderizar 24 líneas de texto cada una con hasta 80 caracteres. Ahora es evidentemente obsoleto pero el límite de 80 caracteres es aún una restricción frecuente para evitar `line-wraps` o tener barras de `scroll`.  En cualquier forma, si requieres más de 80 caracteres para una sola instrucción es posible que necesites pensar en tu esquema de nombres de variables, o reconsiderar el diseño general de tu solución.
 
 En otros lenguajes (javascript en particular) resulta complicado respetar este límite y otras reglas de estilo aplican (i.e segmentar una instrucción con saltos de linea `\n`)
 
@@ -36,7 +36,7 @@ float c = 5.0 / 9.0 * (f - 32.0);
 Para los comentarios dentro de funciones, usa comentarios `inline` y mantenlos **breves** (i.e una sola línea), de otra forma interferirían con la lectura del código fuente. Escribe los comentarios en la línea inmediatamente superior a la pieza de código que se está describiendo. Recuerda dejar un espacio después del inicio del comentario `//`.
 
 <aside class="warning">
-  No mezcles codigo y comentario en la misma linea! i.e
+  No mezcles código y comentario en la misma linea! i.e
  <code>int foo = 12; //asigna un valor al entero </code>
 </aside>
 
@@ -49,10 +49,10 @@ int square(int n)
     return n * n;
 }
 ```
-Las funciones son perfectas candidatas para breves comentarios significativos: resulta util que cada función tenga justo antes de su **implementación** una breve descripción de que hace dicha subrutina. Generalmente no es necesario comentar `main`.
+Las funciones son perfectas candidatas para breves comentarios significativos: resulta útil que cada función tenga justo antes de su **implementación** una breve descripción de que hace dicha subrutina. Generalmente no es necesario comentar `main`.
 
 <aside class="notice">
-  No es necesario comentar el comportamiento de ciclos de repeticion.
+  No es necesario comentar el comportamiento de ciclos de repetición.
   como <code>for</code> o <code>while</code>
 </aside>
 
@@ -69,7 +69,7 @@ Al principio de cada archivo `.c` o `.h` resulta útil agregar la información d
 
 ## estructuras condicionales
 
-La guia de estilo pretende resaltar el contenido de los bloques condicionales, y clarificar la expresión de la condicional.
+La guía de estilo pretende resaltar el contenido de los bloques condicionales, y clarificar la expresión de la condicional.
 
 ```c
 if (x > 0)
@@ -87,11 +87,11 @@ else
 ```
 ### Las estructuras condicionales tienen que respetar
 
-- las llaves se alinean correctamente, *cada una en su propia linea*, haciendo enfasis en lo que contiene cada bloque de codigo. 
-- cada `if` tiene un espacio antes de abrir el parentesis de la expresión condicional.
+- las llaves se alinean correctamente, *cada una en su propia linea*, haciendo énfasis en lo que contiene cada bloque de código. 
+- cada `if` tiene un espacio antes de abrir el paréntesis de la expresión condicional.
 - cada llamada a `printf` esta correctamente indentada.
 - existe un espacio separando `<` y `>` de los valores a comparar.
-- No se tiene espacio inmedatamente despues de abrir `(` parentesis o inmediatamente antes de `)` cerrarlo.
+- No se tiene espacio inmediatamente después de abrir `(` paréntesis o inmediatamente antes de `)` cerrarlo.
 
 <aside class="notice">
  Aunque la indentación tradicional de <code>c</code> son de 4 espacios, se permite tener indentación de 2 espacios siempre y cuando seamos <strong>consistentes</strong>
@@ -110,7 +110,7 @@ Frecuentemente encontraremos llaves en la misma linea que la condición. Esto no
 ### definitivamente así no
 
 ```c
-// esto es terrible y no sera aceptado.
+// esto es terrible y no será aceptado.
 if (x < 0)
     {
     printf("x is negative\n");
@@ -120,11 +120,10 @@ else
     printf("x is negative\n");
     }
 ```
-Esto es terrible.
-
+Estos estilos no serán aceptados independientemente de si la solución es programaticamente correcta. 
 ## Switches
 
-Declare a `switch` as follows:
+Para la sentencia `switch` 
 
 ```c
 switch (n)
@@ -143,18 +142,22 @@ switch (n)
 }
 ```
 
-Notice how:
+es necesario que:
 
-- each curly brace is on its own line;
-- there's a single space after `switch`;
-- there isn't any space immediately after each `(` or immediately before each `)`;
-- the switch's cases are indented with 4 spaces;
-- the cases' bodies are indented further with 4 spaces; and
-- each `case` (including `default`) ends with a `break`.
+- cada llave se encuentra en su propia linea;
+- existe un espacio entre la palabra reservada `switch` y la expresión a evaluar;
+- No se tiene espacio inmediatamente después de abrir `(` paréntesis o inmediatamente antes de `)` cerrarlo.
+- las condiciones de cada caso se encuentran correctamente indentadas en relación al inicio de la expresión. 
+- el bloque de código correspondiente a cada caso se encuentra correctamente indentado en relación a la expresión de ese caso; y
+- todos los `case` (incluyendo `default`) termina con `break`.
 
-## Functions
+Sobre el ultimo punto, es importante recalcar que aunque `c` permite `fallthrough` en los casos (i.e no terminar explícitamente un caso) esto no será permitido. 
 
-In accordance with [C99](http://en.wikipedia.org/wiki/C99), be sure to declare `main` with:
+## Funciones
+
+### Sobre <code>main</code>
+
+Para declarar `main`
 
 ```c
 int main(void)
@@ -162,28 +165,16 @@ int main(void)
 
 }
 ```
-
-or, if using the CS50 Library, with:
-
-```c
-#include <cs50.h>
-
-int main(int argc, string argv[])
-{
-
-}
-```
-
-or with:
+de acuerdo con el estándar [C99](http://en.wikipedia.org/wiki/C99), la declaración de la función `main` será tan explicita como sea posible, en su version mas simple regresando un `int` y descartando `argc` y `argv` de forma explicita con `void`.
 
 ```c
 int main(int argc, char *argv[])
 {
-
 }
 ```
 
-or even with:
+de otra forma, si se requieren `argc` y `argv` estos pueden ser declarados como un arreglo de `char`.
+
 
 ```c
 int main(int argc, char **argv)
@@ -191,8 +182,9 @@ int main(int argc, char **argv)
 
 }
 ```
+O si se prefiere, como un `char**`.
 
-Do not declare `main` with:
+recuerda no dejar vacíos los argumentos de `main`
 
 ```c
 int main()
@@ -201,7 +193,7 @@ int main()
 }
 ```
 
-or with:
+o declarar `main` tal que regrese un tipo de dato diferente de `int`.
 
 ```c
 void main()
@@ -210,8 +202,7 @@ void main()
 }
 ```
 
-or with:
-
+o dejar implícito el tipo de dato de retorno. 
 ```c
 main()
 {
@@ -220,6 +211,7 @@ main()
 ```
 
 As for your own functions, be sure to define them similiarly, with each curly brace on its own line and with the return type on the same line as the function's name, just as we've done with `main`.
+
 
 ## Indentation
 
