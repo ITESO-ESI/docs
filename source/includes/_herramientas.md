@@ -1,172 +1,48 @@
-# Kittens
+# Herramientas
+## Editores & IDEs
 
-## Get All Kittens
+[CLion](https://www.jetbrains.com/clion/) es el IDE oficial del curso. Unicamente se proporcionara soporte institucional a CLion.
+<aside class="notice"> Recuerden solicitar su licencia gratuita por estudiantes usando su correo institucional.</aside>
 
-```ruby
-require 'kittn'
+[Vs-Code](https://code.visualstudio.com/) es una opción alternativa para aquellos **hackers** que no tengan miedo de configurar su propio toolchain.
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
+[SpaceVim](https://spacevim.org/) para aquellos que quieran pasar mas tiempo configurando su IDE que programando.
 
-```python
-import kittn
+## VCS
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+Usaremos Git como nuestro **V**ersion **C**ontrol **S**ystem para todos los entregables y ejercicios.
+Aunque si lo desean pueden usar una GUI - **G**raphic **U**ser **I**nterface, es **altamente recomendado** que usen la CLI - **C**ommand **L**ine **I**nterface.
 
-```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
+Pueden obtener [Git aquí](https://git-scm.com/downloads)
 
-```javascript
-const kittn = require('kittn');
+| Herramienta | Version |
+| :----- | :--------- |
+| git | `>= 2.3` |
 
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
+## Toolchain
 
-> The above command returns JSON structured like this:
+CLion tiene `out-of-the-box` configurado correctamente el toolchain necesario, si se desea usar otro IDE (i.e `vs-code`) es necesario instalar de forma independiente:
 
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
+| Herramienta | Version |
+| :----- | :--------- |
+| CMake | `>= 3.33` |
+| clang, gcc | `>= 12.0`, ` >= 4.5`|
+| Microsoft™ Visual™ Studio™ C++™ | ` >= ???` |
 
-This endpoint retrieves all kittens.
+Para los mortales de Microsoft™ Windows™ 10™ CLion usa una version empaquetada de MinGW. Esta es suficiente siempre y cuando NO usemos librerías externas (i.e `raylib` o `Criterion`).
 
-### HTTP Request
+Opcionalmente pero **altamente recomendado**, si desean ejecutar las pruebas unitarias de forma local se requiere [Criterion](https://github.com/Snaipe/Criterion).
 
-`GET http://example.com/api/kittens`
+Para los mortales de Microsoft™ Windows™ 10™ es necesario instalar Microsoft™ Visual™ Studio™ C++™ y Meson de forma independiente, compilar e instalar la librería.
 
-### Query Parameters
+<aside class="success">Se recomienda desinstalar windows y sustituirlo por Ubuntu</aside>
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+Adicional a esto, yo uso:
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
+| Herramienta | Version |
+| ----- | --------- |
+| vim | `>= 8.2` |
+| iTerm | `>= 3` |
+| Homebrew | `>= 3.5` |
 
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
-
+Si algún hacker usa MacOS es **altamente** recomendado que usen [Homebrew](https://brew.sh/) como su administrador de paquetes.

@@ -1,5 +1,5 @@
 ---
-title: API Reference
+title: PMD 2022
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - c
@@ -20,6 +20,6 @@ code_clipboard: true
 
 meta:
   - name: pmd docs
-    content: documentacion para programacion con memoria dinamica
+    content: documentación para programación con memoria dinámica
 ---
 
