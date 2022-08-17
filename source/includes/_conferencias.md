@@ -1,36 +1,38 @@
 # Conferencias
 ## Sesión 0
 
-Introduccion al curso! Revisamos la guia de aprendizaje. 
+* Introducción al curso.
+* Revisamos puntos importantes de la guía de aprendizaje.
+  * Metodos y notas importantes sobre el esquema de calificaciones y evaluaciones.
+  * Donde encontrar los recursos del curso, como `docs`, `github` etc.
+  * Se presento la metodologia de clase.
 
 ## Sesión 1
 
-prefacio
----
+### prefacio
 se asume una cierta familiaridad con una `cli`, si este no es el caso, podemos estudiar como funcionan.
 
 a recordar los comandos que vimos:
 
-|       commando        |               descripción                |
-|:---------------------:|:----------------------------------------:|
-|      `cls`       | limpiar la pantalla de la consola |
-|     `pwd`      | responde a `donde estoy?`, imprime el directorio actual |
-|   `ls`    |      lista los archivos del directorio actual      |
-|     `cd`      |   para cambiarnos de directorio |
+| commando |                       descripción                       |
+|:--------:|:-------------------------------------------------------:|
+|  `cls`   |            limpiar la pantalla de la consola            |
+|  `pwd`   | responde a `donde estoy?`, imprime el directorio actual |
+|   `ls`   |        lista los archivos del directorio actual         |
+|   `cd`   |              para cambiarnos de directorio              |
 
 
-repositorio local
----
+### repositorio local
+
 es un directorio con git inicializado. (i.e `git init`), por lo tanto, el folder `.git` existe.
 para "desinstalar" `git`, es suficiente borrar el folder `/.git`.
 Tradicionalmente contiene codigo, instrucciones de compilacion, y un archivo `.gitignore`.
 
-repositorio remoto
----
+### repositorio remoto
+
 Es una copia de un `repo` local, pero en un servidor remoto. (i.e `github`, `gitlab` etc.)
 
-comandos notables
----
+### comandos notables
 
 |       commando        |               descripción                |
 |:---------------------:|:----------------------------------------:|
@@ -43,7 +45,7 @@ comandos notables
 |      `git merge`      |              une dos ramas               |
 
 
-## Single-player git
+### Single-player git
 
 durante el curso (quizá a excepcion del proyecto) jugaremos **single-player** git. por lo tanto, las poderosas
 funciones de colaboración usualmente no las usaremos. el *"flow"* de trabajo que se recomienda es el siguiente:
@@ -65,8 +67,7 @@ si el repo que queremos manipular esta en un repositorio remoto, es suficiente `
 
 si tenemos un `repo` local que desconoce de la existencia de un `repo` remoto, es necesario usar `git remote add` para registrarlo.
 
-tldr
----
+### tldr
 `git` es un **VCS**. Es útil para desarrollar secciones de nuestros programas con cambios discretos.
 
 Los archivos que nos interesa agregar al `tracking` se tienen que `add`ear. (i.e `git add .`)
