@@ -314,6 +314,32 @@
       <ul id="toc" class="toc-list-h1">
           <li>
             <a href="#conferencias" class="toc-h1 toc-link" data-title="Conferencias">Conferencias</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#sesion-0" class="toc-h2 toc-link" data-title="Sesión 0">Sesión 0</a>
+                  </li>
+                  <li>
+                    <a href="#sesion-1" class="toc-h2 toc-link" data-title="Sesión 1">Sesión 1</a>
+                  </li>
+                  <li>
+                    <a href="#prefacio" class="toc-h2 toc-link" data-title="prefacio">prefacio</a>
+                  </li>
+                  <li>
+                    <a href="#repositorio-local" class="toc-h2 toc-link" data-title="repositorio local">repositorio local</a>
+                  </li>
+                  <li>
+                    <a href="#repositorio-remoto" class="toc-h2 toc-link" data-title="repositorio remoto">repositorio remoto</a>
+                  </li>
+                  <li>
+                    <a href="#comandos-notables" class="toc-h2 toc-link" data-title="comandos notables">comandos notables</a>
+                  </li>
+                  <li>
+                    <a href="#single-player-git" class="toc-h2 toc-link" data-title="Single-player git">Single-player git</a>
+                  </li>
+                  <li>
+                    <a href="#tldr" class="toc-h2 toc-link" data-title="tldr">tldr</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#ejercicios" class="toc-h1 toc-link" data-title="Ejercicios">Ejercicios</a>
@@ -376,7 +402,119 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='conferencias'>Conferencias</h1><h1 id='ejercicios'>Ejercicios</h1><h1 id='herramientas'>Herramientas</h1><h2 id='editores-amp-ides'>Editores &amp; IDEs</h2>
+        <h1 id='conferencias'>Conferencias</h1><h2 id='sesion-0'>Sesión 0</h2>
+<p>Introduccion al curso! Revisamos la guia de aprendizaje. </p>
+<h2 id='sesion-1'>Sesión 1</h2><h2 id='prefacio'>prefacio</h2>
+<p>se asume una cierta familiaridad con una <code>cli</code>, si este no es el caso, podemos estudiar como funcionan.</p>
+
+<p>a recordar los comandos que vimos:</p>
+
+<table><thead>
+<tr>
+<th style="text-align: center">commando</th>
+<th style="text-align: center">descripción</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"><code>cls</code></td>
+<td style="text-align: center">limpiar la pantalla de la consola</td>
+</tr>
+<tr>
+<td style="text-align: center"><code>pwd</code></td>
+<td style="text-align: center">responde a <code>donde estoy?</code>, imprime el directorio actual</td>
+</tr>
+<tr>
+<td style="text-align: center"><code>ls</code></td>
+<td style="text-align: center">lista los archivos del directorio actual</td>
+</tr>
+<tr>
+<td style="text-align: center"><code>cd</code></td>
+<td style="text-align: center">para cambiarnos de directorio</td>
+</tr>
+</tbody></table>
+<h2 id='repositorio-local'>repositorio local</h2>
+<p>es un directorio con git inicializado. (i.e <code>git init</code>), por lo tanto, el folder <code>.git</code> existe.
+para &quot;desinstalar&quot; <code>git</code>, es suficiente borrar el folder <code>/.git</code>.
+Tradicionalmente contiene codigo, instrucciones de compilacion, y un archivo <code>.gitignore</code>.</p>
+<h2 id='repositorio-remoto'>repositorio remoto</h2>
+<p>Es una copia de un <code>repo</code> local, pero en un servidor remoto. (i.e <code>github</code>, <code>gitlab</code> etc.)</p>
+<h2 id='comandos-notables'>comandos notables</h2>
+<table><thead>
+<tr>
+<th style="text-align: center">commando</th>
+<th style="text-align: center">descripción</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"><code>git init</code></td>
+<td style="text-align: center">inicializa un repo de git</td>
+</tr>
+<tr>
+<td style="text-align: center"><code>git status</code></td>
+<td style="text-align: center">obtiene el estado actual del repositorio</td>
+</tr>
+<tr>
+<td style="text-align: center"><code>git add %ARGS%</code></td>
+<td style="text-align: center">agrega archivos al <code>tracking</code></td>
+</tr>
+<tr>
+<td style="text-align: center"><code>git commit</code></td>
+<td style="text-align: center">&quot;comete&quot; (o guarda) los cambios a git</td>
+</tr>
+<tr>
+<td style="text-align: center"><code>git branch</code></td>
+<td style="text-align: center">muestra todas las ramas del repo</td>
+</tr>
+<tr>
+<td style="text-align: center"><code>git checkout %ARGS%</code></td>
+<td style="text-align: center">cambia a la rama deseada</td>
+</tr>
+<tr>
+<td style="text-align: center"><code>git merge</code></td>
+<td style="text-align: center">une dos ramas</td>
+</tr>
+</tbody></table>
+<h2 id='single-player-git'>Single-player git</h2>
+<p>durante el curso (quizá a excepcion del proyecto) jugaremos <strong>single-player</strong> git. por lo tanto, las poderosas
+funciones de colaboración usualmente no las usaremos. el <em>&quot;flow&quot;</em> de trabajo que se recomienda es el siguiente:</p>
+
+<ol>
+<li><code>git init</code> en el repo local deseado.</li>
+<li>crear archivo <code>.gitignore</code> siguiendo el <code>boilerplate</code> del curso.</li>
+<li><code>git add .</code> para agregar todos los archivos al <code>branch</code> por defecto ( i.e <code>main</code> ).</li>
+<li><code>git commit -m &quot;First commit&quot;</code> para crear un punto inicial del historial.</li>
+<li><code>git checkout -b &quot;feat/mi-nuevo-feature&quot;</code> para crear y cambiarnos a un branch nuevo.</li>
+<li>programar el feature necesario hasta estar satisfechos con los cambios.</li>
+<li>cada cierto tiempo guardar los cambios a git (<code>git add .</code> si creamos archivos, <code>git commit -m &quot;descripcion de mi cambio&quot;</code>)</li>
+<li>una vez terminado el feature, <code>git checkout main</code> para regresar a nuestra <code>branch</code> principal.</li>
+<li><code>git merge feat/mi-nuevo-feature</code> para unir las dos ramas, e inmediatamente despues borrar <code>git branch -d feat/mi-nuevo-feature</code> la branch vieja.</li>
+<li>regresar al paso 5 si existen features por implementar.</li>
+</ol>
+
+<p>opcionalmente, si queremos publicar nuestro trabajo a github, desde la branch deseada <code>git push</code>.</p>
+
+<p>si el repo que queremos manipular esta en un repositorio remoto, es suficiente <code>git clone %URL%</code> para crear el repo local, regresar al paso 1.</p>
+
+<p>si tenemos un <code>repo</code> local que desconoce de la existencia de un <code>repo</code> remoto, es necesario usar <code>git remote add</code> para registrarlo.</p>
+<h2 id='tldr'>tldr</h2>
+<p><code>git</code> es un <strong>VCS</strong>. Es útil para desarrollar secciones de nuestros programas con cambios discretos.</p>
+
+<p>Los archivos que nos interesa agregar al <code>tracking</code> se tienen que <code>add</code>ear. (i.e <code>git add .</code>)</p>
+
+<p>Cuando queremos guardar los cambios, es suficiente con <code>commite</code>earlos.</p>
+
+<p>Estos cambios pueden ser consultados(<code>git log</code>) y podemos revertirlos de ser necesario (<code>git reset</code>).</p>
+
+<p>Es útil al jugar single player <code>git</code> que cada cambio sea un <code>feat/feature-name</code>.
+Cuando estemos satisfechos con los cambios, realizamos un <code>merge</code> al branch principal (<code>main</code>, o <code>master</code>)</p>
+
+<p><strong>IMPORTANTE</strong> En todo momento solo tendremos dos (2) branches, nuestra rama principal que contiene una version estable del programa
+y nuestra rama donde estemos desarrollando <code>features</code> nuevas. de otra forma, es posible que nos enfrentemos a <code>merge conflicts</code>.</p>
+
+<p>Si queremos compartir los cambios a un repositorio remoto (i.e en <code>github</code>) es suficiente con <code>push</code>ear los cambios.</p>
+
+<p>Si queremos obtener cambios de un repositorio remoto, es suficiente con <code>pull</code>earlos (o <code>clone</code>earlos si no tenemos el repo local.)</p>
+<h1 id='ejercicios'>Ejercicios</h1><h1 id='herramientas'>Herramientas</h1><h2 id='editores-amp-ides'>Editores &amp; IDEs</h2>
 <p><a href="https://www.jetbrains.com/clion/">CLion</a> es el IDE oficial del curso. Unicamente se proporcionara soporte institucional a CLion.
 <aside class="notice"> Recuerden solicitar su licencia gratuita por estudiantes usando su correo institucional.</aside></p>
 
