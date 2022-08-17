@@ -321,24 +321,6 @@
                   <li>
                     <a href="#sesion-1" class="toc-h2 toc-link" data-title="Sesión 1">Sesión 1</a>
                   </li>
-                  <li>
-                    <a href="#prefacio" class="toc-h2 toc-link" data-title="prefacio">prefacio</a>
-                  </li>
-                  <li>
-                    <a href="#repositorio-local" class="toc-h2 toc-link" data-title="repositorio local">repositorio local</a>
-                  </li>
-                  <li>
-                    <a href="#repositorio-remoto" class="toc-h2 toc-link" data-title="repositorio remoto">repositorio remoto</a>
-                  </li>
-                  <li>
-                    <a href="#comandos-notables" class="toc-h2 toc-link" data-title="comandos notables">comandos notables</a>
-                  </li>
-                  <li>
-                    <a href="#single-player-git" class="toc-h2 toc-link" data-title="Single-player git">Single-player git</a>
-                  </li>
-                  <li>
-                    <a href="#tldr" class="toc-h2 toc-link" data-title="tldr">tldr</a>
-                  </li>
               </ul>
           </li>
           <li>
@@ -403,8 +385,17 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='conferencias'>Conferencias</h1><h2 id='sesion-0'>Sesión 0</h2>
-<p>Introduccion al curso! Revisamos la guia de aprendizaje. </p>
-<h2 id='sesion-1'>Sesión 1</h2><h2 id='prefacio'>prefacio</h2>
+<ul>
+<li>Introducción al curso.</li>
+<li>Revisamos puntos importantes de la guía de aprendizaje.
+
+<ul>
+<li>Metodos y notas importantes sobre el esquema de calificaciones y evaluaciones.</li>
+<li>Donde encontrar los recursos del curso, como <code>docs</code>, <code>github</code> etc.</li>
+<li>Se presento la metodologia de clase.</li>
+</ul></li>
+</ul>
+<h2 id='sesion-1'>Sesión 1</h2><h3 id='prefacio'>prefacio</h3>
 <p>se asume una cierta familiaridad con una <code>cli</code>, si este no es el caso, podemos estudiar como funcionan.</p>
 
 <p>a recordar los comandos que vimos:</p>
@@ -432,13 +423,13 @@
 <td style="text-align: center">para cambiarnos de directorio</td>
 </tr>
 </tbody></table>
-<h2 id='repositorio-local'>repositorio local</h2>
+<h3 id='repositorio-local'>repositorio local</h3>
 <p>es un directorio con git inicializado. (i.e <code>git init</code>), por lo tanto, el folder <code>.git</code> existe.
 para &quot;desinstalar&quot; <code>git</code>, es suficiente borrar el folder <code>/.git</code>.
 Tradicionalmente contiene codigo, instrucciones de compilacion, y un archivo <code>.gitignore</code>.</p>
-<h2 id='repositorio-remoto'>repositorio remoto</h2>
+<h3 id='repositorio-remoto'>repositorio remoto</h3>
 <p>Es una copia de un <code>repo</code> local, pero en un servidor remoto. (i.e <code>github</code>, <code>gitlab</code> etc.)</p>
-<h2 id='comandos-notables'>comandos notables</h2>
+<h3 id='comandos-notables'>comandos notables</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">commando</th>
@@ -474,7 +465,7 @@ Tradicionalmente contiene codigo, instrucciones de compilacion, y un archivo <co
 <td style="text-align: center">une dos ramas</td>
 </tr>
 </tbody></table>
-<h2 id='single-player-git'>Single-player git</h2>
+<h3 id='single-player-git'>Single-player git</h3>
 <p>durante el curso (quizá a excepcion del proyecto) jugaremos <strong>single-player</strong> git. por lo tanto, las poderosas
 funciones de colaboración usualmente no las usaremos. el <em>&quot;flow&quot;</em> de trabajo que se recomienda es el siguiente:</p>
 
@@ -496,7 +487,7 @@ funciones de colaboración usualmente no las usaremos. el <em>&quot;flow&quot;</
 <p>si el repo que queremos manipular esta en un repositorio remoto, es suficiente <code>git clone %URL%</code> para crear el repo local, regresar al paso 1.</p>
 
 <p>si tenemos un <code>repo</code> local que desconoce de la existencia de un <code>repo</code> remoto, es necesario usar <code>git remote add</code> para registrarlo.</p>
-<h2 id='tldr'>tldr</h2>
+<h3 id='tldr'>tldr</h3>
 <p><code>git</code> es un <strong>VCS</strong>. Es útil para desarrollar secciones de nuestros programas con cambios discretos.</p>
 
 <p>Los archivos que nos interesa agregar al <code>tracking</code> se tienen que <code>add</code>ear. (i.e <code>git add .</code>)</p>
