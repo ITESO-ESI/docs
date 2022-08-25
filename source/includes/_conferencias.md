@@ -188,4 +188,58 @@ dirección de memoria inválida el programa se comportará correctamente, el rie
 
 Sobre apuntadores a estructuras, apuntadores como argumentos a funciones.
 
+### Modificar valores a traves de referencias
 
+consideremos la función `swap` `void swap(int *a, int *b);` que pretende intercambiar los valores de `a` y `b`.
+
+```c
+void swap(int *a, int *b)
+{
+  int temp = *a;
+  *a = *b;
+  *b = temp;
+}
+```
+
+En `c` los argumentos a funciones se pasan por **valor** , es decir: cada función tiene su copia de los argumentos que recibe
+y los cambios que sufren no se reflejarán en el resto del programa. Si una función recibe apuntadores y modifica los valores 
+referenciados usando `*` esos cambios **SI** se mostrarán en todo el programa!
+
+notese que al invocar la función swap, puesto que se modificaron los valores de `a` y `b` esos cambios se reflejarán desde la función "llamadora" (`i.e main`).
+
+
+### Apuntadores a estructuras
+
+```c
+typedef struct {
+  float x;
+  float y;
+}
+Vector_2d;
+```
+Puesto que podemos declarar apuntadores de **cualquier** tipo de dato, declarar un apuntador a estructuras es sencillo.
+para comodidad (mas no es mandatorio) usamos `typedef` para definir un alias a nuestra `struct`
+
+ahora es válido declarar `Vector_2d *mi_apuntador_a_vector;`
+
+Para los tipos de datos primitivos `int`, `char`, `float` etc como para estructuras se cumple que si son los argumentos de una función, entonces se pasan por **valor**.
+Si una funció recibe un apuntador a estructura y usa `*` para modificar sus miembros, esos cambios se reflejarán también en la función "llamadora" (`i.e main`).
+
+`(*mi_apuntador_a_vector).x = 12.4;` es una instrucción válida asumiento que el apuntador esta referenciando una posición legal de memoria.
+
+### Sintactic sugar - apuntadores a `struct`
+
+`dereferenciar` una estructura es una operación tan común que la notación tradicional de `*` resulta un tanto burda.
+
+```c
+void square_vector(Vector_2d *vector)
+{
+  // equivalente a (*vector).x = (*vector).x * (*vector).x;
+  vector->x = vector->x * vector->x;
+  // equivalente a (*vector).y = (*vector).y * (*vector).y;
+  vector->y = vector->y * vector->y;
+}
+```
+
+existe entonces el operador "flechita" `->` (es un guión `-` seguido de un "mayor que" `>`) es taquigrafía especial que nos permite
+`dereferenciar` rápida y claramente una struct a traves de su apuntador.
