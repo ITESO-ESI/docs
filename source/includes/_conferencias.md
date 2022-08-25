@@ -164,7 +164,7 @@ for(int i = 0; i < 5; i++)
 recordando la definición de arreglo
 **definición**
 <aside class="success">
-Un arreglo es una colección de elementos, todos del mismo tiempo, ordenados de forma consecutiva en memoria.
+Un arreglo es una colección de elementos, todos del mismo tipo, ordenados de forma consecutiva en memoria.
 </aside>
 
 por lo tanto, si "aumentamos" el valor de un apuntador, efectivamente estamos cambiando la referencia al dato siguiente consecutivo!
