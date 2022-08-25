@@ -2,6 +2,7 @@ Description
 --------------------
 The `docs` are all references and notes needed to take the PMD Iteso course. Documentation is in spanish for our students convenience.
 
+use `bundle exec middleman server` to serve local version.
 
 Thanks to the slate team!
 --------------------
