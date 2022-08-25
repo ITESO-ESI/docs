@@ -321,6 +321,12 @@
                   <li>
                     <a href="#sesion-1" class="toc-h2 toc-link" data-title="Sesión 1">Sesión 1</a>
                   </li>
+                  <li>
+                    <a href="#sesion-2" class="toc-h2 toc-link" data-title="sesión 2">sesión 2</a>
+                  </li>
+                  <li>
+                    <a href="#sesion-3" class="toc-h2 toc-link" data-title="Sesión 3">Sesión 3</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -505,6 +511,130 @@ y nuestra rama donde estemos desarrollando <code>features</code> nuevas. de otra
 <p>Si queremos compartir los cambios a un repositorio remoto (i.e en <code>github</code>) es suficiente con <code>push</code>ear los cambios.</p>
 
 <p>Si queremos obtener cambios de un repositorio remoto, es suficiente con <code>pull</code>earlos (o <code>clone</code>earlos si no tenemos el repo local.)</p>
+<h2 id='sesion-2'>sesión 2</h2>
+<p>sobre apuntadores, aritmetica de apuntadores, operadores de <code>dereferencia</code> y <code>direccion de</code>.</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">mi_entero</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">mi_apuntador</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// aun no apuntamos a nada</span>
+  <span class="n">mi_apuntador</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">mi_entero</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>definición</strong>
+<aside class="success">
+un apuntador es una <code>variable</code> cuyo valor es una <code>dirección de memoria</code>.
+</aside></p>
+
+<p>de forma general, declaramos un apuntador con la forma <code>tipo_de_dato *identificador;</code> es legal declarar 
+apuntadores para cualquier tipo de dato.</p>
+<h3 id='sobre-y-amp'>sobre <code>*</code> y <code>&amp;</code></h3>
+<p>las direcciones de memoria se representan numericamente, frecuentemente usando el sistema hexadecimal.
+para declarar apuntadores, usamos asteriscos <code>*</code> despues del tipo de dato al que queremos referenciar.</p>
+
+<p>notesé que al declarar <code>mi_apuntador</code> el valor <code>0</code> denota <code>NULL</code> o una dirección INVALIDA
+posteriormente, se asigna a <code>mi_apuntador</code> la dirección de memoria de <code>mi_entero</code> usando el operador 
+<code>direccion de</code> representado con <code>&amp;</code>.</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">int</span> <span class="n">mi_entero</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+<span class="kt">int</span><span class="o">*</span> <span class="n">apuntador_a_entero</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">mi_entero</span><span class="p">;</span>
+
+<span class="n">printf</span><span class="p">(</span><span class="s">"VALORES:</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"&lt;mi_entero:&gt; %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">mi_entero</span><span class="p">);</span> <span class="c1">// usando el identificador de la variable "tradicional"</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"&lt;VALOR&gt; &lt;apuntador_a_entero&gt; %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="o">*</span><span class="n">apuntador_a_entero</span><span class="p">);</span> <span class="c1">// usando operador '*' "de dereferencia" para obtener valor.</span>
+
+<span class="n">printf</span><span class="p">(</span><span class="s">"DIRECCIONES DE MEMORIA:</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"&lt;DIRECCION&gt; &lt;mi_entero&gt; %p</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mi_entero</span><span class="p">);</span> <span class="c1">// usando el operador '&amp;'  "direccion de" para obtener direccion de memoria</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"&lt;apuntador_a_entero&gt; %p</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">apuntador_a_entero</span><span class="p">);</span> <span class="c1">// el valor de apuntador_a_entero es una direccion de memoria!</span>
+
+</code></pre></div><h3 id='la-desafortunada-vida-de'>la desafortunada vida de <code>*</code></h3>
+<p>recordemos que el simbolo <code>*</code>, <code>asterisco</code> &quot;trabaja tiempo extra&quot;:</p>
+
+<ol>
+<li>Es el operador de multiplicación.</li>
+<li>Es el simbolo que denota que el tipo de dato de nuestra variable es apuntador (<code>int *mi_apuntador</code>)</li>
+<li>Es el operador de <code>dereferencia</code>. se usa para obtener el <strong>VALOR</strong> de una dirección de memoria.</li>
+</ol>
+<h3 id='la-afortunada-vida-de-amp'>la afortunada vida de <code>&amp;</code></h3>
+<p>aunque podriamos argumentar que <code>&amp;</code>, <code>ampercent</code> tambien tiene multiples usos:</p>
+
+<ol>
+<li>Se usa para declarar que multiples condiciones logicas tienen que ser verdaderas (<code>&amp;&amp;</code>)</li>
+<li>Como operador <code>AND</code> a nivel de bits (<code>baz = foo &amp; bar;</code>)</li>
+<li>Como operador <code>dirección de</code>.</li>
+</ol>
+
+<p>por los diferentes contextos donde aparece, suele no causar el mismo nivel de confusión que <code>*</code></p>
+<h3 id='los-apuntadores-tambien-son-variables'>los apuntadores también son variables!</h3><div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">int</span> <span class="n">mi_arreglo</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span> <span class="mi">2782</span><span class="p">};</span>
+<span class="kt">int</span> <span class="o">*</span><span class="n">mi_apuntador</span> <span class="o">=</span> <span class="n">mi_arreglo</span><span class="p">;</span>
+
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">" %d "</span><span class="p">,</span> <span class="o">*</span><span class="n">mi_apuntador</span><span class="p">);</span>
+  <span class="n">mi_apuntador</span> <span class="o">=</span> <span class="n">mi_apuntador</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// o mi_apuntador++; !</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>recordando la definición de arreglo
+<strong>definición</strong>
+<aside class="success">
+Un arreglo es una colección de elementos, todos del mismo tiempo, ordenados de forma consecutiva en memoria.
+</aside></p>
+
+<p>por lo tanto, si &quot;aumentamos&quot; el valor de un apuntador, efectivamente estamos cambiando la referencia al dato siguiente consecutivo!
+podemos aprovechar eso para visitar cada elemento de un arreglo usando el operador de <code>*</code>.</p>
+
+<p>como nota, al finalizar el ciclo <code>for</code>, el valor de <code>mi_apuntador</code> es una dirección invalida, y por lo tanto
+<code>dereferenciarla</code> podria causar comportamiento indeterminado!.</p>
+
+<aside class="notice">
+Si en lugar de imprimir los valores del arreglo nos interesaran las direcciones de memoria, 
+como cambiaria el cuerpo del ciclo <code>for</code>?
+</aside>
+<h3 id='notas-importantes'>Notas importantes</h3>
+<p>manipular la dirección que guarda un apuntador es generalmente una operación sin riesgo, <code>i.e</code> si un apuntador guarda una
+dirección de memoria inválida el programa se comportará correctamente, el riesgo existe al <code>dereferenciar</code> (con <code>*</code>) una referencia ilegal!</p>
+<h2 id='sesion-3'>Sesión 3</h2>
+<p>Sobre apuntadores a estructuras, apuntadores como argumentos a funciones.</p>
+<h3 id='modificar-valores-a-traves-de-referencias'>Modificar valores a traves de referencias</h3>
+<p>consideremos la función <code>swap</code> <code>void swap(int *a, int *b);</code> que pretende intercambiar los valores de <code>a</code> y <code>b</code>.</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="o">*</span><span class="n">a</span><span class="p">;</span>
+  <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="o">*</span><span class="n">b</span><span class="p">;</span>
+  <span class="o">*</span><span class="n">b</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>En <code>c</code> los argumentos a funciones se pasan por <strong>valor</strong> , es decir: cada función tiene su copia de los argumentos que recibe
+y los cambios que sufren no se reflejarán en el resto del programa. Si una función recibe apuntadores y modifica los valores 
+referenciados usando <code>*</code> esos cambios <strong>SI</strong> se mostrarán en todo el programa!</p>
+
+<p>notese que al invocar la función swap, puesto que se modificaron los valores de <code>a</code> y <code>b</code> esos cambios se reflejarán desde la función &quot;llamadora&quot; (<code>i.e main</code>).</p>
+<h3 id='apuntadores-a-estructuras'>Apuntadores a estructuras</h3><div class="highlight"><pre class="highlight c tab-c"><code><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+  <span class="kt">float</span> <span class="n">x</span><span class="p">;</span>
+  <span class="kt">float</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">Vector_2d</span><span class="p">;</span>
+</code></pre></div>
+<p>Puesto que podemos declarar apuntadores de <strong>cualquier</strong> tipo de dato, declarar un apuntador a estructuras es sencillo.
+para comodidad (mas no es mandatorio) usamos <code>typedef</code> para definir un alias a nuestra <code>struct</code></p>
+
+<p>ahora es válido declarar <code>Vector_2d *mi_apuntador_a_vector;</code></p>
+
+<p>Para los tipos de datos primitivos <code>int</code>, <code>char</code>, <code>float</code> etc como para estructuras se cumple que si son los argumentos de una función, entonces se pasan por <strong>valor</strong>.
+Si una funció recibe un apuntador a estructura y usa <code>*</code> para modificar sus miembros, esos cambios se reflejarán también en la función &quot;llamadora&quot; (<code>i.e main</code>).</p>
+
+<p><code>(*mi_apuntador_a_vector).x = 12.4;</code> es una instrucción válida asumiento que el apuntador esta referenciando una posición legal de memoria.</p>
+<h3 id='sintactic-sugar-apuntadores-a-struct'>Sintactic sugar - apuntadores a <code>struct</code></h3>
+<p><code>dereferenciar</code> una estructura es una operación tan común que la notación tradicional de <code>*</code> resulta un tanto burda.</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">void</span> <span class="nf">square_vector</span><span class="p">(</span><span class="n">Vector_2d</span> <span class="o">*</span><span class="n">vector</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// equivalente a (*vector).x = (*vector).x * (*vector).x;</span>
+  <span class="n">vector</span><span class="o">-&gt;</span><span class="n">x</span> <span class="o">=</span> <span class="n">vector</span><span class="o">-&gt;</span><span class="n">x</span> <span class="o">*</span> <span class="n">vector</span><span class="o">-&gt;</span><span class="n">x</span><span class="p">;</span>
+  <span class="c1">// equivalente a (*vector).y = (*vector).y * (*vector).y;</span>
+  <span class="n">vector</span><span class="o">-&gt;</span><span class="n">y</span> <span class="o">=</span> <span class="n">vector</span><span class="o">-&gt;</span><span class="n">y</span> <span class="o">*</span> <span class="n">vector</span><span class="o">-&gt;</span><span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>existe entonces el operador &quot;flechita&quot; <code>-&gt;</code> (es un guión <code>-</code> seguido de un &quot;mayor que&quot; <code>&gt;</code>) es taquigrafía especial que nos permite
+<code>dereferenciar</code> rápida y claramente una struct a traves de su apuntador.</p>
 <h1 id='ejercicios'>Ejercicios</h1><h1 id='herramientas'>Herramientas</h1><h2 id='editores-amp-ides'>Editores &amp; IDEs</h2>
 <p><a href="https://www.jetbrains.com/clion/">CLion</a> es el IDE oficial del curso. Unicamente se proporcionara soporte institucional a CLion.
 <aside class="notice"> Recuerden solicitar su licencia gratuita por estudiantes usando su correo institucional.</aside></p>
