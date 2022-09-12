@@ -380,4 +380,71 @@ Considerando el ejemplo, `mi_ptr` apuntará a una dirección `3` bytes antes que
 
 ** Nota: Esto puede variar dependiendo de su arquitectura, pero para efectos de esta clase siempre será cierto.
 
+## Sesión 6
 
+```c
+  int un_numero = 12;
+  char *mi_frase = "hola mundo!";
+  int mi_arry[] = {22, 34, 45};
+  Vector2d mis_vectores[] = {
+          {.x = 12, .y = 12},
+          {.x = 5.3,.y = 0.2}
+  };
+
+  void *mis_refs[] = {&un_numero, mi_frase, mi_arry, mis_vectores};
+```
+Sobre arreglos de apuntadores sin tipo, o `void*[]`.
+
+### direcciones sin restricciones
+
+Puesto que un arreglo de apuntadores `void*` es un arreglo de referencias sin tipo, no existen restricciones de los apuntadores que puede contener.
+En el ejemplo, `mis_refs` contiene referencias a una gran variedad de tipos! desde un sencillo entero (`un_numero`) hasta un arreglo de vectores.
+
+aunque un apuntador sin tipo no se puede dereferenciar, este no es el caso para `void*[]`, puesto que el tipo de dato es `void*` es posible obtener direcciones
+individuales del arreglo!
+
+### Obteniendo miembros individuales
+
+```c
+  printf("la direccion de mi frase %p\n", mis_refs[1]);
+  printf("la direccion de mis vectores %p\n", *(mis_refs+3));
+```
+Los arreglos de direcciones `void*` siguen las mismas reglas que cualquier otro arreglo de apuntadores. Es posible obtener los valores que contiene usando tanto 
+corchetes, como aritmetica de apuntadores.
+
+### Imprimiendo valores
+
+```c
+  printf("%d\n", *(int*)mis_refs[0]);
+  printf("%s\n", (char*)mis_refs[1]);
+  printf("%d\n", *((int*)*(mis_refs+2)+2));
+```
+
+Puesto que las referencias que contiene `mis_refs` no tienen tipo, se siguen las mismas reglas que los apuntadores `void*` para poder dereferenciarlos!
+Notese el último cast (para imprimir `45`), puesto que la dirección de memoria que corresponde a `mis_refs+2` ya es un `int*` podemos volver a aprovechar la aritmetica
+de apuntadores para imprimir el tercer elemento del arreglo!
+
+### Sobre casts en una sola linea
+
+Notesé que realizar varias operaciones de aritmetica de apuntadores y `casts` en una sola linea rápidamente se vuelve confuso y ofuscado.
+
+```c
+  printf("vector 1, x: %f\n", ((Vector2d*)*(mis_refs+3))->x);
+  printf("vector 2, x: %f\n", ((Vector2d*)*(mis_refs+3)+1)->x);
+```
+
+En general, cuando manipulamos referencias complejas (como es este caso) es mejor crear las variables intermedias necesarias para clarificar la intención del codigo
+tal que, podemos refactorizar los `printfs` a:
+
+```c
+  // refactorizando codigo confuso
+  
+  Vector2d *vector_ptr = *(mis_refs+3);
+  Vector2d first = *vector_ptr;
+  Vector2d second = *(vector_ptr+1);
+
+  printf("vector 1, x: %f\n", first.x);
+  printf("vector 2, x: %f\n", second.x);
+```
+
+De esta forma, resulta evidente en que nivel de indirección nos encontramos en cada paso del programa.
