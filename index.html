@@ -333,6 +333,9 @@
                   <li>
                     <a href="#sesion-5" class="toc-h2 toc-link" data-title="Sesión 5">Sesión 5</a>
                   </li>
+                  <li>
+                    <a href="#sesion-6" class="toc-h2 toc-link" data-title="Sesión 6">Sesión 6</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -741,6 +744,52 @@ apuntará al siguiente <code>byte</code>. **</p>
 <p>Considerando el ejemplo, <code>mi_ptr</code> apuntará a una dirección <code>3</code> bytes antes que <code>mi_int_ptr</code>. **</p>
 
 <p>** Nota: Esto puede variar dependiendo de su arquitectura, pero para efectos de esta clase siempre será cierto.</p>
+<h2 id='sesion-6'>Sesión 6</h2><div class="highlight"><pre class="highlight c tab-c"><code>  <span class="kt">int</span> <span class="n">un_numero</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">mi_frase</span> <span class="o">=</span> <span class="s">"hola mundo!"</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">mi_arry</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">22</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">45</span><span class="p">};</span>
+  <span class="n">Vector2d</span> <span class="n">mis_vectores</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+          <span class="p">{.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span> <span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">12</span><span class="p">},</span>
+          <span class="p">{.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">.</span><span class="mi">3</span><span class="p">,.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">2</span><span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="kt">void</span> <span class="o">*</span><span class="n">mis_refs</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="o">&amp;</span><span class="n">un_numero</span><span class="p">,</span> <span class="n">mi_frase</span><span class="p">,</span> <span class="n">mi_arry</span><span class="p">,</span> <span class="n">mis_vectores</span><span class="p">};</span>
+</code></pre></div>
+<p>Sobre arreglos de apuntadores sin tipo, o <code>void*[]</code>.</p>
+<h3 id='direcciones-sin-restricciones'>direcciones sin restricciones</h3>
+<p>Puesto que un arreglo de apuntadores <code>void*</code> es un arreglo de referencias sin tipo, no existen restricciones de los apuntadores que puede contener.
+En el ejemplo, <code>mis_refs</code> contiene referencias a una gran variedad de tipos! desde un sencillo entero (<code>un_numero</code>) hasta un arreglo de vectores.</p>
+
+<p>aunque un apuntador sin tipo no se puede dereferenciar, este no es el caso para <code>void*[]</code>, puesto que el tipo de dato es <code>void*</code> es posible obtener direcciones
+individuales del arreglo!</p>
+<h3 id='obteniendo-miembros-individuales'>Obteniendo miembros individuales</h3><div class="highlight"><pre class="highlight c tab-c"><code>  <span class="n">printf</span><span class="p">(</span><span class="s">"la direccion de mi frase %p</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">mis_refs</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"la direccion de mis vectores %p</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">mis_refs</span><span class="o">+</span><span class="mi">3</span><span class="p">));</span>
+</code></pre></div>
+<p>Los arreglos de direcciones <code>void*</code> siguen las mismas reglas que cualquier otro arreglo de apuntadores. Es posible obtener los valores que contiene usando tanto 
+corchetes, como aritmetica de apuntadores.</p>
+<h3 id='imprimiendo-valores'>Imprimiendo valores</h3><div class="highlight"><pre class="highlight c tab-c"><code>  <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">mis_refs</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">mis_refs</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="o">*</span><span class="p">((</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">mis_refs</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">));</span>
+</code></pre></div>
+<p>Puesto que las referencias que contiene <code>mis_refs</code> no tienen tipo, se siguen las mismas reglas que los apuntadores <code>void*</code> para poder dereferenciarlos!
+Notese el último cast (para imprimir <code>45</code>), puesto que la dirección de memoria que corresponde a <code>mis_refs+2</code> ya es un <code>int*</code> podemos volver a aprovechar la aritmetica
+de apuntadores para imprimir el tercer elemento del arreglo!</p>
+<h3 id='sobre-casts-en-una-sola-linea'>Sobre casts en una sola linea</h3>
+<p>Notesé que realizar varias operaciones de aritmetica de apuntadores y <code>casts</code> en una sola linea rápidamente se vuelve confuso y ofuscado.</p>
+<div class="highlight"><pre class="highlight c tab-c"><code>  <span class="n">printf</span><span class="p">(</span><span class="s">"vector 1, x: %f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">((</span><span class="n">Vector2d</span><span class="o">*</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">mis_refs</span><span class="o">+</span><span class="mi">3</span><span class="p">))</span><span class="o">-&gt;</span><span class="n">x</span><span class="p">);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"vector 2, x: %f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">((</span><span class="n">Vector2d</span><span class="o">*</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">mis_refs</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">x</span><span class="p">);</span>
+</code></pre></div>
+<p>En general, cuando manipulamos referencias complejas (como es este caso) es mejor crear las variables intermedias necesarias para clarificar la intención del codigo
+tal que, podemos refactorizar los <code>printfs</code> a:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code>  <span class="c1">// refactorizando codigo confuso</span>
+
+  <span class="n">Vector2d</span> <span class="o">*</span><span class="n">vector_ptr</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">mis_refs</span><span class="o">+</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">Vector2d</span> <span class="n">first</span> <span class="o">=</span> <span class="o">*</span><span class="n">vector_ptr</span><span class="p">;</span>
+  <span class="n">Vector2d</span> <span class="n">second</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">vector_ptr</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+
+  <span class="n">printf</span><span class="p">(</span><span class="s">"vector 1, x: %f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">first</span><span class="p">.</span><span class="n">x</span><span class="p">);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"vector 2, x: %f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">second</span><span class="p">.</span><span class="n">x</span><span class="p">);</span>
+</code></pre></div>
+<p>De esta forma, resulta evidente en que nivel de indirección nos encontramos en cada paso del programa.</p>
 <h1 id='ejercicios'>Ejercicios</h1><h1 id='herramientas'>Herramientas</h1><h2 id='editores-amp-ides'>Editores &amp; IDEs</h2>
 <p><a href="https://www.jetbrains.com/clion/">CLion</a> es el IDE oficial del curso. Unicamente se proporcionara soporte institucional a CLion.
 <aside class="notice"> Recuerden solicitar su licencia gratuita por estudiantes usando su correo institucional.</aside></p>
