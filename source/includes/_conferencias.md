@@ -243,3 +243,37 @@ void square_vector(Vector_2d *vector)
 
 existe entonces el operador "flechita" `->` (es un guión `-` seguido de un "mayor que" `>`) es taquigrafía especial que nos permite
 `dereferenciar` rápida y claramente una struct a traves de su apuntador.
+
+## Sesión 4
+
+Sobre arreglos de apuntadores, y diferencias con arreglos de 2 dimensiones.
+
+Si declaramos un arreglo de tipo `int* mi_arreglo[10]` , los elementos de `mi_arreglo` son direcciones de memoria. Estas pueden ser manipuladas como sub arreglos.
+
+```c
+  int arry_1[] = {12,22,44};
+  int some_int = -12;
+  int arry_2[] = {20,30,40};
+
+  int *mi_arreglo[3] = {
+          arry_1,
+          &some_int,
+          arry_2
+  };
+```
+
+En este ejemplo en particular, el primer elemento de `mi_arreglo` es una referencia a `arry_1`
+por lo tanto: `mi_arreglo[0][1]` es una forma legal de acceder al entero `22` usando notación de corchetes.
+Si usaramos únicamente aritmetica de apuntadores `*((*mi_arreglo)+1)` es la expresión equivalente.
+
+notece que no es necesario que los miembros de `mi_arreglo` sean tambien arreglos de enteros, es suficiente con que sea una referencia a un entero.
+de esta forma, `mi_arreglo[1][0]` es una forma legal de accedera a `-12`. Con aritmetica de apuntadores : `**(mi_arreglo+1)`, notese que esta es una versión resumida:
+de `*(*(mi_arreglo+1)+0)`.
+
+Como último ejemplo, consideremos el caso en que queramos obtener el entero `40`, usando corchetes es trivial: `mi_arreglo[2][2]`
+usando aritmetica de apuntadores: `*(*(mi_arreglo+2)+2)`. 
+
+<aside class="notice">
+  de forma general: `*(*(mi_arreglo+i)+j)` resolverá el mismo elemento que mi_arreglo[i][j] si y solo
+  si son arreglos con tipos completos (i.e NO `void*`).
+</aside>
