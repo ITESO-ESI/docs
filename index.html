@@ -327,6 +327,12 @@
                   <li>
                     <a href="#sesion-3" class="toc-h2 toc-link" data-title="Sesión 3">Sesión 3</a>
                   </li>
+                  <li>
+                    <a href="#sesion-4" class="toc-h2 toc-link" data-title="Sesión 4">Sesión 4</a>
+                  </li>
+                  <li>
+                    <a href="#sesion-5" class="toc-h2 toc-link" data-title="Sesión 5">Sesión 5</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -635,6 +641,106 @@ Si una funció recibe un apuntador a estructura y usa <code>*</code> para modifi
 </code></pre></div>
 <p>existe entonces el operador &quot;flechita&quot; <code>-&gt;</code> (es un guión <code>-</code> seguido de un &quot;mayor que&quot; <code>&gt;</code>) es taquigrafía especial que nos permite
 <code>dereferenciar</code> rápida y claramente una struct a traves de su apuntador.</p>
+<h2 id='sesion-4'>Sesión 4</h2>
+<p>Sobre arreglos de apuntadores, y diferencias con arreglos de 2 dimensiones.</p>
+<h3 id='arreglos-de-apuntadores-int'>Arreglos de apuntadores int*</h3><div class="highlight"><pre class="highlight c tab-c"><code>  <span class="kt">int</span> <span class="n">arry_1</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">12</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">44</span><span class="p">};</span>
+  <span class="kt">int</span> <span class="n">some_int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">12</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">arry_2</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">40</span><span class="p">};</span>
+
+  <span class="kt">int</span> <span class="o">*</span><span class="n">mi_arreglo</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">arry_1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">some_int</span><span class="p">,</span> <span class="n">arry_2</span> <span class="p">};</span>
+</code></pre></div>
+<p>Si declaramos un arreglo de tipo <code>int* mi_arreglo[10]</code> , los elementos de <code>mi_arreglo</code> son direcciones de memoria.
+Puesto que son referencias, siguen todas las reglas que esperamos, pueden ser <code>*</code> de-referenciados y los cambios que sufran sus valores
+se reflejarán en todo el programa.</p>
+<div class="highlight"><pre class="highlight c tab-c"><code>  <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">mi_arreglo</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="o">*</span><span class="p">((</span><span class="o">*</span><span class="n">mi_arreglo</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
+</code></pre></div>
+<p>En este ejemplo en particular, el primer elemento de <code>mi_arreglo</code> es una referencia a <code>arry_1</code>
+por lo tanto: <code>mi_arreglo[0][1]</code> es una forma legal de acceder al entero <code>22</code> usando notación de corchetes.
+Si usaramos únicamente aritmetica de apuntadores <code>*((*mi_arreglo)+1)</code> es la expresión equivalente.</p>
+<div class="highlight"><pre class="highlight c tab-c"><code>  <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">mi_arreglo</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="o">**</span><span class="p">(</span><span class="n">mi_arreglo</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div>
+<p>notece que no es necesario que los miembros de <code>mi_arreglo</code> sean tambien arreglos de enteros, es suficiente con que sea una referencia a un entero.
+de esta forma, <code>mi_arreglo[1][0]</code> es una forma legal de accedera a <code>-12</code>. Con aritmetica de apuntadores : <code>**(mi_arreglo+1)</code>.</p>
+<div class="highlight"><pre class="highlight c tab-c"><code>  <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">mi_arreglo</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">mi_arreglo</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">);</span>
+</code></pre></div>
+<p>Como último ejemplo, consideremos el caso en que queramos obtener el entero <code>40</code>, usando corchetes es trivial: <code>mi_arreglo[2][2]</code>
+usando aritmetica de apuntadores: <code>*(*(mi_arreglo+2)+2)</code>. </p>
+<h3 id='en-general-sobre-arreglos-de-apuntadores'>en general sobre arreglos de apuntadores.</h3>
+<p>Para entender mejor la notación de aritmetica de apuntadores:</p>
+
+<aside class="notice">
+  de forma general: <code>*(*(mi_arreglo+i)+j)</code> resolverá el mismo elemento que <code>mi_arreglo[i][j]</code> si y solo
+  si son arreglos con tipos completos (i.e NO <code>void*</code>).
+</aside>
+<h3 id='arreglos-de-apuntadores-char'>Arreglos de apuntadores char*</h3>
+<p>consideremos el siguiente programa:</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">many_strings</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+          <span class="s">"hola!"</span><span class="p">,</span>
+          <span class="s">"este arreglo tiene muchas frases"</span><span class="p">,</span>
+          <span class="s">"todas se pueden acceder"</span><span class="p">,</span>
+          <span class="s">"de forma sencilla!"</span>
+  <span class="p">};</span>
+
+  <span class="n">printf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="n">many_strings</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">" %s"</span><span class="p">,</span> <span class="n">many_strings</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>resulta practico que sea un arreglo de apuntadores <code>char*</code> puesto que el contenido del mensaje es constante.
+si usaramos un arreglo de tipo <code>char[][]</code>, estariamos obligados a determinar la longitud máxima de nuestros mensajes en tiempo de compilación!</p>
+
+<p>Considera porque un arreglo tipo <code>char*[]</code> no requiere dicha definición? (Aprovecha los conocimientos de la sesión 7 - Organización de memoria)</p>
+<h2 id='sesion-5'>Sesión 5</h2>
+<p>Sobre apuntadores sin tipo, o <code>void*</code>.</p>
+<h3 id='sobre-void'>Sobre void*</h3><div class="highlight"><pre class="highlight c tab-c"><code>  <span class="kt">int</span> <span class="n">mi_entero</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="o">*</span><span class="n">mi_ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">mi_entero</span><span class="p">;</span>
+
+  <span class="n">printf</span><span class="p">(</span><span class="s">"%p</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mi_entero</span><span class="p">);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"%p</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">mi_ptr</span><span class="p">);</span>
+</code></pre></div>
+<p>Cuando ignoramos (o no nos interesa) el tipo de dato concreto al que estamos apuntando, pero SI deseamos guardar una referencia para futuros usos
+utilizamos apuntadores tipo <code>void*</code>.</p>
+
+<p>En este ejemplo, la dirección de <code>mi_entero</code> y el valor de <code>mi_ptr</code> serán iguales.</p>
+
+<aside class="warning">
+  Es ilegal el uso del operador de dereferencia <code>*</code> en apuntadores <code>void*</code>.
+</aside>
+<div class="highlight"><pre class="highlight c tab-c"><code>  <span class="c1">// ilegal, esto no compila.</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="o">*</span><span class="n">mi_ptr</span><span class="p">);</span>
+</code></pre></div>
+<p>La razón tendria que ser evidente: al no conocer el tipo de dato concreto al que estamos apuntando, es imposible que sepamos cuantas direcciones de memoria
+tenemos que leer para construir el dato concreto.</p>
+<div class="highlight"><pre class="highlight c tab-c"><code>  <span class="c1">// esto si es legal</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">mi_helper</span> <span class="o">=</span> <span class="n">mi_ptr</span><span class="p">;</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="o">*</span><span class="n">mi_helper</span><span class="p">);</span>
+</code></pre></div>
+<p>Para obtener el valor de un apuntador <code>void*</code> es necesario especificar el tipo de dato concreto al que estamos apuntando, y posteriormente dereferenciarlo.
+Esta operación se conoce como <code>typecasting</code> o sencillamente <code>casting</code>.</p>
+
+<p>es posible realizar el <code>cast</code> en una sola linea, i.e: <code>printf(&quot;%d\n&quot;, *(int*)mi_ptr);</code></p>
+<h3 id='sobre-aritmetica-de-apuntadores'>Sobre aritmetica de apuntadores</h3><div class="highlight"><pre class="highlight c tab-c"><code>  <span class="kt">int</span> <span class="o">*</span><span class="n">mi_int_ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">mi_entero</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="o">*</span><span class="n">mi_ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">mi_entero</span><span class="p">;</span>
+
+  <span class="n">mi_ptr</span><span class="o">++</span><span class="p">;</span>
+  <span class="n">mi_int_ptr</span><span class="o">++</span><span class="p">;</span>
+
+  <span class="n">printf</span><span class="p">(</span><span class="s">"%p != %p"</span><span class="p">,</span> <span class="n">mi_ptr</span><span class="p">,</span> <span class="n">mi_int_ptr</span><span class="p">);</span>
+</code></pre></div>
+<p>Como vimos en <strong>arimetica de apuntadores</strong> cuando tenemos un apuntador de tipo concreto, lo podemos manipular tal que si se le suma o resta algun número entero,
+se calculará la siguiente dirección de memoria valida para ese tipo concreto en particular. Puesto que <code>void*</code> desconoce el tipo, en su lugar se toma el tipo de 
+dato mas pequeño que se soporte (i.e <code>char</code>) para completar la operación, generalmente esto significa que si aumentamos en <code>1</code> el valor de un apuntador <code>void*</code> este
+apuntará al siguiente <code>byte</code>. **</p>
+
+<p>Considerando el ejemplo, <code>mi_ptr</code> apuntará a una dirección <code>3</code> bytes antes que <code>mi_int_ptr</code>. **</p>
+
+<p>** Nota: Esto puede variar dependiendo de su arquitectura, pero para efectos de esta clase siempre será cierto.</p>
 <h1 id='ejercicios'>Ejercicios</h1><h1 id='herramientas'>Herramientas</h1><h2 id='editores-amp-ides'>Editores &amp; IDEs</h2>
 <p><a href="https://www.jetbrains.com/clion/">CLion</a> es el IDE oficial del curso. Unicamente se proporcionara soporte institucional a CLion.
 <aside class="notice"> Recuerden solicitar su licencia gratuita por estudiantes usando su correo institucional.</aside></p>
