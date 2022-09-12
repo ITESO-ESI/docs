@@ -248,32 +248,136 @@ existe entonces el operador "flechita" `->` (es un guión `-` seguido de un "may
 
 Sobre arreglos de apuntadores, y diferencias con arreglos de 2 dimensiones.
 
-Si declaramos un arreglo de tipo `int* mi_arreglo[10]` , los elementos de `mi_arreglo` son direcciones de memoria. Estas pueden ser manipuladas como sub arreglos.
+### Arreglos de apuntadores int*
 
 ```c
   int arry_1[] = {12,22,44};
   int some_int = -12;
   int arry_2[] = {20,30,40};
 
-  int *mi_arreglo[3] = {
-          arry_1,
-          &some_int,
-          arry_2
-  };
+  int *mi_arreglo[3] = { arry_1, &some_int, arry_2 };
 ```
 
+Si declaramos un arreglo de tipo `int* mi_arreglo[10]` , los elementos de `mi_arreglo` son direcciones de memoria.
+Puesto que son referencias, siguen todas las reglas que esperamos, pueden ser `*` de-referenciados y los cambios que sufran sus valores
+se reflejarán en todo el programa.
+
+```c
+  printf("%d\n", mi_arreglo[0][1]);
+  printf("%d\n", *((*mi_arreglo)+1));
+```
 En este ejemplo en particular, el primer elemento de `mi_arreglo` es una referencia a `arry_1`
 por lo tanto: `mi_arreglo[0][1]` es una forma legal de acceder al entero `22` usando notación de corchetes.
 Si usaramos únicamente aritmetica de apuntadores `*((*mi_arreglo)+1)` es la expresión equivalente.
 
+```c
+  printf("%d\n", mi_arreglo[1][0]);
+  printf("%d\n", **(mi_arreglo+1);
+```
 notece que no es necesario que los miembros de `mi_arreglo` sean tambien arreglos de enteros, es suficiente con que sea una referencia a un entero.
-de esta forma, `mi_arreglo[1][0]` es una forma legal de accedera a `-12`. Con aritmetica de apuntadores : `**(mi_arreglo+1)`, notese que esta es una versión resumida:
-de `*(*(mi_arreglo+1)+0)`.
+de esta forma, `mi_arreglo[1][0]` es una forma legal de accedera a `-12`. Con aritmetica de apuntadores : `**(mi_arreglo+1)`.
 
+```c
+  printf("%d\n", mi_arreglo[2][2]);
+  printf("%d\n", *(*(mi_arreglo+2)+2);
+```
 Como último ejemplo, consideremos el caso en que queramos obtener el entero `40`, usando corchetes es trivial: `mi_arreglo[2][2]`
 usando aritmetica de apuntadores: `*(*(mi_arreglo+2)+2)`. 
 
+### en general sobre arreglos de apuntadores.
+
+Para entender mejor la notación de aritmetica de apuntadores:
+
 <aside class="notice">
-  de forma general: `*(*(mi_arreglo+i)+j)` resolverá el mismo elemento que mi_arreglo[i][j] si y solo
-  si son arreglos con tipos completos (i.e NO `void*`).
+  de forma general: <code>*(*(mi_arreglo+i)+j)</code> resolverá el mismo elemento que <code>mi_arreglo[i][j]</code> si y solo
+  si son arreglos con tipos completos (i.e NO <code>void*</code>).
 </aside>
+
+### Arreglos de apuntadores char*
+
+consideremos el siguiente programa:
+
+```c
+int main(void)
+{
+  char *many_strings[] = {
+          "hola!",
+          "este arreglo tiene muchas frases",
+          "todas se pueden acceder",
+          "de forma sencilla!"
+  };
+
+  printf("%s", many_strings[0]);
+
+  for(int i = 1; i < 4; i++)
+    printf(" %s", many_strings[i]);
+}
+```
+
+resulta practico que sea un arreglo de apuntadores `char*` puesto que el contenido del mensaje es constante.
+si usaramos un arreglo de tipo `char[][]`, estariamos obligados a determinar la longitud máxima de nuestros mensajes en tiempo de compilación!
+
+Considera porque un arreglo tipo `char*[]` no requiere dicha definición? (Aprovecha los conocimientos de la sesión 7 - Organización de memoria)
+
+## Sesión 5
+Sobre apuntadores sin tipo, o `void*`.
+
+### Sobre void*
+
+```c
+  int mi_entero = 12;
+  void *mi_ptr = &mi_entero;
+
+  printf("%p\n", &mi_entero);
+  printf("%p\n", mi_ptr);
+```
+Cuando ignoramos (o no nos interesa) el tipo de dato concreto al que estamos apuntando, pero SI deseamos guardar una referencia para futuros usos
+utilizamos apuntadores tipo `void*`.
+
+En este ejemplo, la dirección de `mi_entero` y el valor de `mi_ptr` serán iguales.
+
+<aside class="warning">
+  Es ilegal el uso del operador de dereferencia <code>*</code> en apuntadores <code>void*</code>.
+</aside>
+
+
+```c
+  // ilegal, esto no compila.
+  printf("%d\n", *mi_ptr);
+```
+
+La razón tendria que ser evidente: al no conocer el tipo de dato concreto al que estamos apuntando, es imposible que sepamos cuantas direcciones de memoria
+tenemos que leer para construir el dato concreto.
+
+```c
+  // esto si es legal
+  int *mi_helper = mi_ptr;
+  printf("%d\n", *mi_helper);
+```
+
+Para obtener el valor de un apuntador `void*` es necesario especificar el tipo de dato concreto al que estamos apuntando, y posteriormente dereferenciarlo.
+Esta operación se conoce como `typecasting` o sencillamente `casting`.
+
+es posible realizar el `cast` en una sola linea, i.e: `printf("%d\n", *(int*)mi_ptr);`
+
+### Sobre aritmetica de apuntadores
+
+```c
+  int *mi_int_ptr = &mi_entero;
+  void *mi_ptr = &mi_entero;
+
+  mi_ptr++;
+  mi_int_ptr++;
+
+  printf("%p != %p", mi_ptr, mi_int_ptr);
+```
+Como vimos en **arimetica de apuntadores** cuando tenemos un apuntador de tipo concreto, lo podemos manipular tal que si se le suma o resta algun número entero,
+se calculará la siguiente dirección de memoria valida para ese tipo concreto en particular. Puesto que `void*` desconoce el tipo, en su lugar se toma el tipo de 
+dato mas pequeño que se soporte (i.e `char`) para completar la operación, generalmente esto significa que si aumentamos en `1` el valor de un apuntador `void*` este
+apuntará al siguiente `byte`. **
+
+Considerando el ejemplo, `mi_ptr` apuntará a una dirección `3` bytes antes que `mi_int_ptr`. **
+
+** Nota: Esto puede variar dependiendo de su arquitectura, pero para efectos de esta clase siempre será cierto.
+
+
