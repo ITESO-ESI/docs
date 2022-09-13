@@ -448,3 +448,95 @@ tal que, podemos refactorizar los `printfs` a:
 ```
 
 De esta forma, resulta evidente en que nivel de indirección nos encontramos en cada paso del programa.
+
+## Sesión 7
+
+Sobre la organización de la memoria.
+
+### Las áreas lógicas
+
+Para "ejecutar" un programa, el sistema operativo inica un `proceso`. Este proceso tiene acceso a memoria, misma que se divide en:
+
+1. Texto
+2. Datos
+3. BSS
+4. Pila o `stack`
+5. Zona libre o `heap`
+
+### Sobre texto, datos, bss
+```c
+  void foo()
+  {
+    static int count = 0;
+    count++;
+  }
+
+
+  int main(void)
+  {
+    foo(); // count será 1 al terminar la invocación
+    foo(); // count será 2 al terminar la invocación
+    foo(); // count será 3 al terminar la invocación
+    // etc
+  }
+```
+
+Las instrucciones ejecutables que conforman su programa se guardaran en `texto`.
+las variables globales (inicializadas o no) y constantes literales pertenecen a `Datos` / `BSS`
+para efectos de esta materia, podremos encapsular estas tres secciones en una sola (`Texto/Datos/BSS`) que llamaremos
+`Static Storage`, o Memoria estática.
+
+### Static
+
+A recordar que la palabra reservada `static` modifica el tiempo de vida de una variable, tal que ya no se guarda en
+el `stack`. `count` vivirá en la sección de `Datos` (parte de `Static Storage`).
+
+
+## Sesión 8
+
+Como continuación del tema `organización de memoria`, consideramos `stack` vs `heap`.
+
+### Sobre el stack
+```c
+  int foo(int a, int b)
+  {
+    return a + b;
+  }
+
+  int main(void)
+  {
+    int suma_1 = foo(1, 1);
+    int suma_2 = foo(12, 12);
+    int suma_3 = foo(21, 21);
+  }
+```
+
+Las variables declaradas en funciones, o sus argumentos se guardan en el stack conforme se necesiten.
+Es decir, cuando invocamos una función, se reserva el espacio de memoria suficiente para representar su contenido y sus miembros
+y al finalizar la ejecución esta memoria se libera.
+
+Esta también se llama `memoria automática` puesto que se reserva y libera de forma implicita durante la ejecución
+
+en el ejemplo, los argumentos de `foo` (`a` y `b`) viven de forma efímera en el `stack` mientras la función se ejecuta.
+mismo caso con `suma_1`, `suma_2` y `suma_3` que residen en el `stack` mientras main exista en la pila de llamadas (o `callstack`).
+
+### Sobre el heap
+
+```c
+  #include <stdlib.h>
+
+  void* foo()
+  {
+    void* mi_blocke_de_memoria = malloc(100);
+    return mi_blocke_de_memoria;
+  }
+
+  int main(void)
+  {
+    void* suma = foo();
+  }
+```
+
+aquellos bloques de memoria que se reserven explicitamente con `malloc` vivirán en el `heap` mientras no 
+se liberen explicitamente, como son direcciones válidas a travez de todo el programa, es legal regresar dicha referencia
+de una función (no así cuando se traten de referencias al `stack`).
