@@ -336,6 +336,12 @@
                   <li>
                     <a href="#sesion-6" class="toc-h2 toc-link" data-title="Sesión 6">Sesión 6</a>
                   </li>
+                  <li>
+                    <a href="#sesion-7" class="toc-h2 toc-link" data-title="Sesión 7">Sesión 7</a>
+                  </li>
+                  <li>
+                    <a href="#sesion-8" class="toc-h2 toc-link" data-title="Sesión 8">Sesión 8</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -790,6 +796,78 @@ tal que, podemos refactorizar los <code>printfs</code> a:</p>
   <span class="n">printf</span><span class="p">(</span><span class="s">"vector 2, x: %f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">second</span><span class="p">.</span><span class="n">x</span><span class="p">);</span>
 </code></pre></div>
 <p>De esta forma, resulta evidente en que nivel de indirección nos encontramos en cada paso del programa.</p>
+<h2 id='sesion-7'>Sesión 7</h2>
+<p>Sobre la organización de la memoria.</p>
+<h3 id='las-areas-logicas'>Las áreas lógicas</h3>
+<p>Para &quot;ejecutar&quot; un programa, el sistema operativo inica un <code>proceso</code>. Este proceso tiene acceso a memoria, misma que se divide en:</p>
+
+<ol>
+<li>Texto</li>
+<li>Datos</li>
+<li>BSS</li>
+<li>Pila o <code>stack</code></li>
+<li>Zona libre o <code>heap</code></li>
+</ol>
+<h3 id='sobre-texto-datos-bss'>Sobre texto, datos, bss</h3><div class="highlight"><pre class="highlight c tab-c"><code>  <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">static</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+  <span class="p">}</span>
+
+
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">foo</span><span class="p">();</span> <span class="c1">// count será 1 al terminar la invocación</span>
+    <span class="n">foo</span><span class="p">();</span> <span class="c1">// count será 2 al terminar la invocación</span>
+    <span class="n">foo</span><span class="p">();</span> <span class="c1">// count será 3 al terminar la invocación</span>
+    <span class="c1">// etc</span>
+  <span class="p">}</span>
+</code></pre></div>
+<p>Las instrucciones ejecutables que conforman su programa se guardaran en <code>texto</code>.
+las variables globales (inicializadas o no) y constantes literales pertenecen a <code>Datos</code> / <code>BSS</code>
+para efectos de esta materia, podremos encapsular estas tres secciones en una sola (<code>Texto/Datos/BSS</code>) que llamaremos
+<code>Static Storage</code>, o Memoria estática.</p>
+<h3 id='static'>Static</h3>
+<p>A recordar que la palabra reservada <code>static</code> modifica el tiempo de vida de una variable, tal que ya no se guarda en
+el <code>stack</code>. <code>count</code> vivirá en la sección de <code>Datos</code> (parte de <code>Static Storage</code>).</p>
+<h2 id='sesion-8'>Sesión 8</h2>
+<p>Como continuación del tema <code>organización de memoria</code>, consideramos <code>stack</code> vs <code>heap</code>.</p>
+<h3 id='sobre-el-stack'>Sobre el stack</h3><div class="highlight"><pre class="highlight c tab-c"><code>  <span class="kt">int</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">suma_1</span> <span class="o">=</span> <span class="n">foo</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">suma_2</span> <span class="o">=</span> <span class="n">foo</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">suma_3</span> <span class="o">=</span> <span class="n">foo</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">21</span><span class="p">);</span>
+  <span class="p">}</span>
+</code></pre></div>
+<p>Las variables declaradas en funciones, o sus argumentos se guardan en el stack conforme se necesiten.
+Es decir, cuando invocamos una función, se reserva el espacio de memoria suficiente para representar su contenido y sus miembros
+y al finalizar la ejecución esta memoria se libera.</p>
+
+<p>Esta también se llama <code>memoria automática</code> puesto que se reserva y libera de forma implicita durante la ejecución</p>
+
+<p>en el ejemplo, los argumentos de <code>foo</code> (<code>a</code> y <code>b</code>) viven de forma efímera en el <code>stack</code> mientras la función se ejecuta.
+mismo caso con <code>suma_1</code>, <code>suma_2</code> y <code>suma_3</code> que residen en el <code>stack</code> mientras main exista en la pila de llamadas (o <code>callstack</code>).</p>
+<h3 id='sobre-el-heap'>Sobre el heap</h3><div class="highlight"><pre class="highlight c tab-c"><code>  <span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span>
+  <span class="kt">void</span><span class="o">*</span> <span class="nf">foo</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="kt">void</span><span class="o">*</span> <span class="n">mi_blocke_de_memoria</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">mi_blocke_de_memoria</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">void</span><span class="o">*</span> <span class="n">suma</span> <span class="o">=</span> <span class="n">foo</span><span class="p">();</span>
+  <span class="p">}</span>
+</code></pre></div>
+<p>aquellos bloques de memoria que se reserven explicitamente con <code>malloc</code> vivirán en el <code>heap</code> mientras no 
+se liberen explicitamente, como son direcciones válidas a travez de todo el programa, es legal regresar dicha referencia
+de una función (no así cuando se traten de referencias al <code>stack</code>).</p>
 <h1 id='ejercicios'>Ejercicios</h1><h1 id='herramientas'>Herramientas</h1><h2 id='editores-amp-ides'>Editores &amp; IDEs</h2>
 <p><a href="https://www.jetbrains.com/clion/">CLion</a> es el IDE oficial del curso. Unicamente se proporcionara soporte institucional a CLion.
 <aside class="notice"> Recuerden solicitar su licencia gratuita por estudiantes usando su correo institucional.</aside></p>
