@@ -342,6 +342,24 @@
                   <li>
                     <a href="#sesion-8" class="toc-h2 toc-link" data-title="Sesión 8">Sesión 8</a>
                   </li>
+                  <li>
+                    <a href="#sesion-9" class="toc-h2 toc-link" data-title="Sesión 9">Sesión 9</a>
+                  </li>
+                  <li>
+                    <a href="#sesion-10" class="toc-h2 toc-link" data-title="Sesión 10">Sesión 10</a>
+                  </li>
+                  <li>
+                    <a href="#sesion-11" class="toc-h2 toc-link" data-title="Sesión 11">Sesión 11</a>
+                  </li>
+                  <li>
+                    <a href="#sesion-12" class="toc-h2 toc-link" data-title="Sesión 12">Sesión 12</a>
+                  </li>
+                  <li>
+                    <a href="#sesion-13" class="toc-h2 toc-link" data-title="Sesión 13">Sesión 13</a>
+                  </li>
+                  <li>
+                    <a href="#sesion-14" class="toc-h2 toc-link" data-title="Sesión 14">Sesión 14</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -868,6 +886,243 @@ mismo caso con <code>suma_1</code>, <code>suma_2</code> y <code>suma_3</code> qu
 <p>aquellos bloques de memoria que se reserven explicitamente con <code>malloc</code> vivirán en el <code>heap</code> mientras no 
 se liberen explicitamente, como son direcciones válidas a travez de todo el programa, es legal regresar dicha referencia
 de una función (no así cuando se traten de referencias al <code>stack</code>).</p>
+<h2 id='sesion-9'>Sesión 9</h2>
+<p>Sobre malloc, y arreglos en memoria dinámica. <code>free</code> y otros detalles</p>
+<h3 id='sobre-malloc'>Sobre malloc</h3><div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">mi_string</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="p">);</span>
+  <span class="n">mi_string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'h'</span><span class="p">;</span>
+  <span class="n">mi_string</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'o'</span><span class="p">;</span>
+  <span class="n">mi_string</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'l'</span><span class="p">;</span>
+  <span class="n">mi_string</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'a'</span><span class="p">;</span>
+  <span class="n">mi_string</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'\0'</span><span class="p">;</span>
+
+  <span class="n">printf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="n">mi_string</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>malloc(size)</code> ( &quot;Memory Allocation&quot; ) reserva un bloque de memoria de al menos un tamaño <code>size</code> y regresa un apuntador <code>void*</code> a este
+nuevo bloque reservado.</p>
+
+<p>Dicho bloque de memoria puede ser usado como un arreglo si conocemos el tipo concreto de lo que guardaremos.
+en el ejemplo <code>mi_string</code> puede ser de-referenciado usando notación de corchetes para escribir la palabra <code>hola</code>
+a notar que es necesario agregar el caracter terminador.</p>
+
+<p>aunque al terminar la ejecución del programa, los recursos reservados son recuperados por el sistema operativo, es recomendable
+que una vez que terminemos de usar el bloque de memoria reservado este se &quot;libere&quot; para evitar <code>memoryLeaks</code></p>
+
+<p>Siguiendo el ejemplo, seria suficiente usar <code>free(mi_string)</code> para liberar los 10 bytes de memoria reservados.</p>
+
+<p>notese que como cualquier apuntador, es posible manipularo usando aritmetica (i.e <code>*(mi_string + 3)</code> será la letra <code>a</code> )</p>
+<h3 id='sobre-free'>Sobre free</h3>
+<p>Cuando se implementen <code>TDA</code>s que reserven memoria de forma dinamica, es fundamental que al eliminar objectos de nuestra colección,
+los bloques de memoria asociados se liberen.</p>
+<h2 id='sesion-10'>Sesión 10</h2>
+<p>Evaluación síncrona I</p>
+<h2 id='sesion-11'>Sesión 11</h2>
+<p>Sobre argumentos de main <code>argc</code> <code>argv</code> y 
+Sobre archivos de texto, <code>fopen</code> <code>fgets</code> <code>rewind</code> y <code>fclose</code></p>
+<h3 id='sobre-argc-y-argv'>Sobre <code>argc</code> y <code>argv</code></h3><div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// recordamos que el primer argumento es la ejecución del programa</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"EJECUTAMOS: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+
+  <span class="c1">// despues, de 1..n los argumentos adicionales del usuario</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">argc</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"argumento #%d: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>es posible alimentar un programa con información al ejecutarse, con los <code>program arguments</code> mismos
+que se agregan despues de invocar el ejecutable, separados por espacios.</p>
+
+<p>En <code>C</code>, dichos argumentos se capturan usando <code>argc</code> -&gt; &quot;Argument Count&quot; y <code>argv</code> -&gt; &quot;Argument Vector&quot;</p>
+
+<p>Siempre el primer argumento es la ruta de ejecución del programa, seguido por un arreglo de <code>strings</code> con cada
+uno de los argumentos que envió el usuario.</p>
+<h3 id='sobre-archivos-de-texto'>Sobre archivos de texto</h3><div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">FILE</span> <span class="o">*</span><span class="n">my_file</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">"../myfile"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">);</span>
+  <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">255</span><span class="p">];</span>
+  <span class="n">fgets</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">my_file</span><span class="p">);</span>
+  <span class="n">fgets</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">my_file</span><span class="p">);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="n">buffer</span><span class="p">);</span>
+
+  <span class="n">fclose</span><span class="p">(</span><span class="n">my_file</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Consideremos las siguientes funciones:</p>
+
+<table><thead>
+<tr>
+<th style="text-align: center">función</th>
+<th style="text-align: left">descripción</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"><code>fopen</code></td>
+<td style="text-align: left">recibe de argumentos un <code>path</code> y un <code>modo</code>, abre el archivo y regresa un <code>file*</code></td>
+</tr>
+<tr>
+<td style="text-align: center"><code>fgets</code></td>
+<td style="text-align: left">lee y guarda en un <code>buffer</code> una linea de un <code>stream</code> (comunmente un archivo)</td>
+</tr>
+<tr>
+<td style="text-align: center"><code>rewind</code></td>
+<td style="text-align: left">regresa el cursor del archivo al inicio (para leer de nuevo)</td>
+</tr>
+<tr>
+<td style="text-align: center"><code>fclose</code></td>
+<td style="text-align: left">Cierra un <code>stream</code></td>
+</tr>
+</tbody></table>
+<div class="highlight"><pre class="highlight console tab-console"><code><span class="go">[my_file]
+
+This is a line
+this is also a line
+the last line
+
+</span></code></pre></div>
+<p>nuestro programa imprimirá  <code>this is also a line</code>.</p>
+<h2 id='sesion-12'>Sesión 12</h2>
+<p>Sobre archivos binarios, modificadores de fopen <code>r</code>, <code>w</code>, <code>a</code> y <code>+</code></p>
+<h3 id='modificadores-o-modos-de-fopen'>Modificadores o modos de fopen</h3><div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">FILE</span> <span class="o">*</span><span class="n">my_file</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">"../myfile"</span><span class="p">,</span> <span class="s">"a"</span><span class="p">);</span>
+  <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">255</span><span class="p">];</span>
+  <span class="n">fputs</span><span class="p">(</span><span class="s">"Esta es una nueva linea</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">my_file</span><span class="p">);</span>
+  <span class="n">fclose</span><span class="p">(</span><span class="n">my_file</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<table><thead>
+<tr>
+<th style="text-align: center">función</th>
+<th style="text-align: left">descripción</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"><code>r</code></td>
+<td style="text-align: left"><code>readonly</code> el archivo se abre para solo lectura, error si no existe.</td>
+</tr>
+<tr>
+<td style="text-align: center"><code>w</code></td>
+<td style="text-align: left"><code>write</code> el archivo se crea si no existe, si existe se sobreescribe.</td>
+</tr>
+<tr>
+<td style="text-align: center"><code>a</code></td>
+<td style="text-align: left"><code>append</code> el archivo se abre con el cursor al final para agregar datos.</td>
+</tr>
+<tr>
+<td style="text-align: center"><code>+</code></td>
+<td style="text-align: left"><code>r+</code>, <code>w+</code>, <code>a+</code> permite lectura y escritura de archivos, y se crea si no existe.</td>
+</tr>
+</tbody></table>
+
+<p>Dependiendo del <code>modo</code> de apertura, se limitan las operaciones que se pueden realizar sobre los archivos.</p>
+
+<p>En el primer ejemplo, abrimos un archivo para agregar información - <code>Esta es una nueva linea\n</code> aparecerá
+al final del archivo despues de cerrar <code>fclose</code> el stream.</p>
+
+<p>Consideremos las siguientes funciones.</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">FILE</span> <span class="o">*</span><span class="n">my_file</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">"../myfile"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">);</span>
+  <span class="n">Una_struct_equis</span> <span class="n">foo</span> <span class="o">=</span> <span class="p">{</span><span class="sc">'a'</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">}};</span>
+  <span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">foo</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Una_struct_equis</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">my_file</span><span class="p">);</span>
+  <span class="n">fclose</span><span class="p">(</span><span class="n">my_file</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<table><thead>
+<tr>
+<th style="text-align: center">función</th>
+<th style="text-align: left">descripción</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"><code>fputs</code></td>
+<td style="text-align: left">agrega lineas de texto a un archivo</td>
+</tr>
+<tr>
+<td style="text-align: center"><code>fread</code></td>
+<td style="text-align: left">lee de un archivo binario</td>
+</tr>
+<tr>
+<td style="text-align: center"><code>fwrite</code></td>
+<td style="text-align: left">escribe a un archivo binario</td>
+</tr>
+</tbody></table>
+
+<p>la diferencia principal entre un archivo de texto (<code>fgets</code>, <code>fputs</code>) y un archivo binario (<code>fread</code>, <code>fwrite</code>) es importante.</p>
+
+<p>Cuando usamos <code>fgets</code> , <code>fputs</code> trabajamos sobre lineas de texto en el archivo, tanto al leer como al escribir.
+frecuentemente usamos <code>buffers</code> de tipo <code>char</code> i.e <code>char buffer[255]</code> para leer/escribir lineas de hasta <code>255</code> caracteres.</p>
+
+<p>Cuando usamos <code>fread</code>, <code>fwrite</code> trabajamos a nivel de bits sobre el archivo, y tenemos libertad de escribir <code>t_size</code> bytes de memoria
+o leer <code>t_size</code> bytes de memoria, es decir, no se trata de caracteres ASCII, guardamos en el archivo cualquier bloque de memoria.</p>
+
+<p>notese que en el segundo ejemplo, estamos guardando al archivo los bytes que le corresponden a <code>foo</code>, que es de tipo <code>Una_Struct_equis</code>.</p>
+<h2 id='sesion-13'>Sesión 13</h2>
+<p>sobre estructuras autoreferenciales (<code>cadenitas</code>)</p>
+<h3 id='structs-magicos'>Structs mágicos</h3><div class="highlight"><pre class="highlight c tab-c"><code><span class="k">typedef</span> <span class="k">struct</span> <span class="n">node</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
+  <span class="k">struct</span> <span class="n">node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">Node</span><span class="p">;</span>
+</code></pre></div>
+<p>Puesto que <code>node</code> es una estructura autoreferencial, es necesario asignarle un nombre antes que el <code>typedef</code>.
+<code>node</code> ahora contiene un apuntador a su mismo tipo.</p>
+
+<p>La estructuras autoreferenciales resultan útiles cuando deseamos implementar <code>Contenedores</code> y el número de elementos que
+el usuario desee agregar nos es desconocido. </p>
+<div class="highlight"><pre class="highlight c tab-c"><code>  <span class="n">Node</span> <span class="n">n</span> <span class="o">=</span> <span class="p">{.</span><span class="n">value</span> <span class="o">=</span> <span class="o">-</span><span class="mi">13</span><span class="p">,</span> <span class="p">.</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span> <span class="p">};</span>
+  <span class="n">Node</span> <span class="n">n2</span> <span class="o">=</span> <span class="p">{.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">70</span><span class="p">,</span> <span class="p">.</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span> <span class="p">};</span>
+  <span class="n">Node</span> <span class="n">n3</span> <span class="o">=</span> <span class="p">{.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span> <span class="p">.</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span> <span class="p">};</span>
+  <span class="n">Node</span> <span class="n">n4</span> <span class="o">=</span> <span class="p">{.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">13</span><span class="p">,</span> <span class="p">.</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span> <span class="p">};</span>
+  <span class="n">n</span><span class="p">.</span><span class="n">next</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">n2</span><span class="p">;</span>
+  <span class="n">n2</span><span class="p">.</span><span class="n">next</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">n3</span><span class="p">;</span>
+  <span class="n">n3</span><span class="p">.</span><span class="n">next</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">n4</span><span class="p">;</span>
+</code></pre></div>
+<p>consideremos la &quot;cadenita&quot; formada, tal que <code>n</code> tiene una referencia a <code>n2</code>. <code>n2</code> tiene una referencia a <code>n3</code> etc.
+A notarse que <code>NO</code> existe forma de regresar, i.e <code>n2</code> NO tiene una referencia a <code>n1</code>.</p>
+<h2 id='sesion-14'>Sesión 14</h2>
+<p>Sobre <code>TDA</code>s (Tipo de dato abstracto) - ( <code>ADS</code> en ingles ) y <code>Contenedores</code></p>
+<h3 id='definiciones'>definiciones</h3>
+<p><strong>definición</strong>
+<aside class="success">
+Un tipo de dato abstracto es un &quot;Objeto&quot; definido por su comportamiento, no por su implementación.
+</aside></p>
+
+<p><strong>definición</strong>
+<aside class="success">
+Un contenedor es un TDA que agrupa elementos y restringe su acceso con verbos semanticamente significativos.
+</aside></p>
+
+<p>Es importante conocer la diferencia entre: <code>QUE</code> hace el contenedor, y <code>COMO</code> logra realizar estas acciones (la <code>implementación</code>).</p>
+<div class="highlight"><pre class="highlight c tab-c"><code><span class="cp">#include</span> <span class="cpf">"my_list.h"</span><span class="cp">
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">List</span> <span class="n">foo</span> <span class="o">=</span> <span class="n">new_list</span><span class="p">();</span>
+  <span class="n">add</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+  <span class="n">add</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="n">contains</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"It works!"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>A considerar un contenedor tipo <code>List</code>:</p>
+
+<ul>
+<li><code>Add</code> agrega un elemento al final de la lista</li>
+<li><code>Remove (i)</code> elimina un elemento de la lista</li>
+<li><code>Find (val)</code> encuentra y regresa el elemento con valor <code>val</code></li>
+<li><code>Contains (val)</code> determina si existe el elemento <code>val</code>.</li>
+</ul>
+
+<p>Notese que no se describe la implementación concreta de las funciones, unicamente define su comportamiento,
+la lista podria estar implementada usando estructuras autoreferenciales, arreglos, archivos etc. etc.</p>
+
+<p>En <code>C</code> es común al definir nuevos <code>contenedores</code> que los verbos y datos relevantes sean &quot;publicos&quot; en un 
+archivo de cabecera &quot;<code>.h</code>&quot; mientras que las implementaciones concretas se encapsulen en su propio archivo fuente <code>.c</code>.</p>
 <h1 id='ejercicios'>Ejercicios</h1><h1 id='herramientas'>Herramientas</h1><h2 id='editores-amp-ides'>Editores &amp; IDEs</h2>
 <p><a href="https://www.jetbrains.com/clion/">CLion</a> es el IDE oficial del curso. Unicamente se proporcionara soporte institucional a CLion.
 <aside class="notice"> Recuerden solicitar su licencia gratuita por estudiantes usando su correo institucional.</aside></p>
