@@ -540,3 +540,243 @@ mismo caso con `suma_1`, `suma_2` y `suma_3` que residen en el `stack` mientras 
 aquellos bloques de memoria que se reserven explicitamente con `malloc` vivirán en el `heap` mientras no 
 se liberen explicitamente, como son direcciones válidas a travez de todo el programa, es legal regresar dicha referencia
 de una función (no así cuando se traten de referencias al `stack`).
+
+## Sesión 9
+
+Sobre malloc, y arreglos en memoria dinámica. `free` y otros detalles
+
+### Sobre malloc
+
+```c
+int main(int argc, char *argv[])
+{
+  char *mi_string = malloc(sizeof(char) * 10);
+  mi_string[0] = 'h';
+  mi_string[1] = 'o';
+  mi_string[2] = 'l';
+  mi_string[3] = 'a';
+  mi_string[4] = '\0';
+  
+  printf("%s", mi_string);
+}
+```
+
+`malloc(size)` ( "Memory Allocation" ) reserva un bloque de memoria de al menos un tamaño `size` y regresa un apuntador `void*` a este
+nuevo bloque reservado.
+
+Dicho bloque de memoria puede ser usado como un arreglo si conocemos el tipo concreto de lo que guardaremos.
+en el ejemplo `mi_string` puede ser de-referenciado usando notación de corchetes para escribir la palabra `hola`
+a notar que es necesario agregar el caracter terminador.
+
+aunque al terminar la ejecución del programa, los recursos reservados son recuperados por el sistema operativo, es recomendable
+que una vez que terminemos de usar el bloque de memoria reservado este se "libere" para evitar `memoryLeaks`
+
+Siguiendo el ejemplo, seria suficiente usar `free(mi_string)` para liberar los 10 bytes de memoria reservados.
+
+notese que como cualquier apuntador, es posible manipularo usando aritmetica (i.e `*(mi_string + 3)` será la letra `a` )
+
+### Sobre free
+
+Cuando se implementen `TDA`s que reserven memoria de forma dinamica, es fundamental que al eliminar objectos de nuestra colección,
+los bloques de memoria asociados se liberen.
+
+## Sesión 10
+
+Evaluación síncrona I
+
+## Sesión 11
+
+Sobre argumentos de main `argc` `argv` y 
+Sobre archivos de texto, `fopen` `fgets` `rewind` y `fclose`
+
+### Sobre `argc` y `argv`
+
+```c
+int main(int argc, char *argv[])
+{
+  // recordamos que el primer argumento es la ejecución del programa
+  printf("EJECUTAMOS: %s\n", argv[0]);
+  
+  // despues, de 1..n los argumentos adicionales del usuario
+  for(int i = 1; i < argc; i++)
+    printf("argumento #%d: %s\n", i, argv[i]);
+}
+```
+
+es posible alimentar un programa con información al ejecutarse, con los `program arguments` mismos
+que se agregan despues de invocar el ejecutable, separados por espacios.
+
+En `C`, dichos argumentos se capturan usando `argc` -> "Argument Count" y `argv` -> "Argument Vector"
+
+Siempre el primer argumento es la ruta de ejecución del programa, seguido por un arreglo de `strings` con cada
+uno de los argumentos que envió el usuario.
+
+### Sobre archivos de texto
+
+```c
+int main(void)
+{
+  FILE *my_file = fopen("../myfile", "r");
+  char buffer[255];
+  fgets(buffer, 255, my_file);
+  fgets(buffer, 255, my_file);
+  printf("%s", buffer);
+
+  fclose(my_file);
+}
+```
+
+Consideremos las siguientes funciones:
+
+| función  | descripción                                                                      |
+|:--------:|:---------------------------------------------------------------------------------|
+| `fopen`  | recibe de argumentos un `path` y un `modo`, abre el archivo y regresa un `file*` |
+| `fgets`  | lee y guarda en un `buffer` una linea de un `stream` (comunmente un archivo)     |
+| `rewind` | regresa el cursor del archivo al inicio (para leer de nuevo)                     |
+| `fclose` | Cierra un `stream`                                                               |
+
+
+```console
+[my_file]
+
+This is a line
+this is also a line
+the last line
+
+```
+nuestro programa imprimirá  `this is also a line`.
+
+## Sesión 12
+
+Sobre archivos binarios, modificadores de fopen `r`, `w`, `a` y `+`
+
+### Modificadores o modos de fopen
+
+```c
+int main(void)
+{
+  FILE *my_file = fopen("../myfile", "a");
+  char buffer[255];
+  fputs("Esta es una nueva linea\n", my_file);
+  fclose(my_file);
+}
+```
+
+| función | descripción                                                                       |
+|:-------:|:----------------------------------------------------------------------------------|
+|   `r`   | `readonly` el archivo se abre para solo lectura, error si no existe.              |
+|   `w`   | `write` el archivo se crea si no existe, si existe se sobreescribe.               |
+|   `a`   | `append` el archivo se abre con el cursor al final para agregar datos.            |
+|   `+`   | `r+`, `w+`, `a+` permite lectura y escritura de archivos, y se crea si no existe. |
+
+Dependiendo del `modo` de apertura, se limitan las operaciones que se pueden realizar sobre los archivos.
+
+En el primer ejemplo, abrimos un archivo para agregar información - `Esta es una nueva linea\n` aparecerá
+al final del archivo despues de cerrar `fclose` el stream.
+
+Consideremos las siguientes funciones.
+
+```c
+int main(void)
+{
+  FILE *my_file = fopen("../myfile", "w");
+  Una_struct_equis foo = {'a', 1, {5,6,7}};
+  fwrite(&foo, sizeof(Una_struct_equis), 1, my_file);
+  fclose(my_file);
+}
+```
+
+| función  | descripción                         |
+|:--------:|:------------------------------------|
+| `fputs`  | agrega lineas de texto a un archivo |
+| `fread`  | lee de un archivo binario           |
+| `fwrite` | escribe a un archivo binario        |
+
+la diferencia principal entre un archivo de texto (`fgets`, `fputs`) y un archivo binario (`fread`, `fwrite`) es importante.
+
+Cuando usamos `fgets` , `fputs` trabajamos sobre lineas de texto en el archivo, tanto al leer como al escribir.
+frecuentemente usamos `buffers` de tipo `char` i.e `char buffer[255]` para leer/escribir lineas de hasta `255` caracteres.
+
+Cuando usamos `fread`, `fwrite` trabajamos a nivel de bits sobre el archivo, y tenemos libertad de escribir `t_size` bytes de memoria
+o leer `t_size` bytes de memoria, es decir, no se trata de caracteres ASCII, guardamos en el archivo cualquier bloque de memoria.
+
+notese que en el segundo ejemplo, estamos guardando al archivo los bytes que le corresponden a `foo`, que es de tipo `Una_Struct_equis`.
+
+## Sesión 13
+
+sobre estructuras autoreferenciales (`cadenitas`)
+
+### Structs mágicos
+
+```c
+typedef struct node
+{
+  int value;
+  struct node *next;
+}
+Node;
+```
+
+Puesto que `node` es una estructura autoreferencial, es necesario asignarle un nombre antes que el `typedef`.
+`node` ahora contiene un apuntador a su mismo tipo.
+
+La estructuras autoreferenciales resultan útiles cuando deseamos implementar `Contenedores` y el número de elementos que
+el usuario desee agregar nos es desconocido. 
+
+```c
+  Node n = {.value = -13, .next = NULL };
+  Node n2 = {.value = 70, .next = NULL };
+  Node n3 = {.value = 12, .next = NULL };
+  Node n4 = {.value = 13, .next = NULL };
+  n.next = &n2;
+  n2.next = &n3;
+  n3.next = &n4;
+```
+
+consideremos la "cadenita" formada, tal que `n` tiene una referencia a `n2`. `n2` tiene una referencia a `n3` etc.
+A notarse que `NO` existe forma de regresar, i.e `n2` NO tiene una referencia a `n1`.
+
+## Sesión 14
+
+Sobre `TDA`s (Tipo de dato abstracto) - ( `ADS` en ingles ) y `Contenedores`
+
+### definiciones
+
+**definición**
+<aside class="success">
+Un tipo de dato abstracto es un "Objeto" definido por su comportamiento, no por su implementación.
+</aside>
+
+**definición**
+<aside class="success">
+Un contenedor es un TDA que agrupa elementos y restringe su acceso con verbos semanticamente significativos.
+</aside>
+
+Es importante conocer la diferencia entre: `QUE` hace el contenedor, y `COMO` logra realizar estas acciones (la `implementación`).
+
+```c
+#include "my_list.h"
+
+int main(int argc, char *argv[])
+{
+  List foo = new_list();
+  add(foo, 2);
+  add(foo, 6);
+
+  if(contains(foo, 2))
+    printf("It works!");
+}
+```
+
+A considerar un contenedor tipo `List`:
+
+- `Add` agrega un elemento al final de la lista
+- `Remove (i)` elimina un elemento de la lista
+- `Find (val)` encuentra y regresa el elemento con valor `val`
+- `Contains (val)` determina si existe el elemento `val`.
+
+Notese que no se describe la implementación concreta de las funciones, unicamente define su comportamiento,
+la lista podria estar implementada usando estructuras autoreferenciales, arreglos, archivos etc. etc.
+
+En `C` es común al definir nuevos `contenedores` que los verbos y datos relevantes sean "publicos" en un 
+archivo de cabecera "`.h`" mientras que las implementaciones concretas se encapsulen en su propio archivo fuente `.c`.
