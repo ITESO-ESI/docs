@@ -775,8 +775,91 @@ A considerar un contenedor tipo `List`:
 - `Find (val)` encuentra y regresa el elemento con valor `val`
 - `Contains (val)` determina si existe el elemento `val`.
 
-Notese que no se describe la implementación concreta de las funciones, unicamente define su comportamiento,
+Notese que NO se describe la implementación concreta de las funciones, unicamente define su comportamiento,
 la lista podria estar implementada usando estructuras autoreferenciales, arreglos, archivos etc. etc.
 
 En `C` es común al definir nuevos `contenedores` que los verbos y datos relevantes sean "publicos" en un 
 archivo de cabecera "`.h`" mientras que las implementaciones concretas se encapsulen en su propio archivo fuente `.c`.
+
+## Sesión 15
+
+Sobre `contenedor` - Stack
+
+### definiciones
+
+Un stack es un contenedor que sigue el comportamiento `LIFO`
+
+**definición**
+<aside class="notice">
+<code>LIFO</code> es "Last in, First Out"
+</aside>
+
+que indica el orden en que obtendremos los elementos que se agreguen al contenedor, en el caso del stack
+el último elemento que se agrego (`push`) , será el elemento a obtener (`pop`)
+
+### API
+
+```c
+
+typedef struct stack Stack; // Para apuntadores tipo Stack*
+
+Stack *stack_new();
+void stack_push(Stack *s, void *val);
+void* stack_peek(Stack *s);
+void* stack_pop(Stack *s);
+int stack_empty(Stack *s);
+
+```
+
+las operaciones relevantes son:
+
+- `push` para agregar elementos
+- `peek` para obtener un elemento del stack **sin retirarlo**
+- `pop` para obtener un elemento del stack, retirandolo en el proceso
+
+adicional a esto, tenemos ciertas funciones apropiadas para todo tipo de contenedores:
+
+- `new` para obtener un stack nuevo
+- `empty` que regresa `true` si el stack esta vacio, `false` caso contrario.
+
+## Sesión 16
+
+Sobre `contenedor` - Queue
+
+### definiciones
+
+Un queue es un contenedor que sigue el comportamiento `FIFO`
+
+**definición**
+<aside class="notice">
+<code>FIFO</code> es "First in, First Out"
+</aside>
+
+para una queue: el primer elemento que se agrego (`append`) , será el elemento a obtener (`remove`)
+se puede visualizar como una fila común, el orden en que se forman las personas indica el orden en que serán atendidas.
+donde el primero que se formó, será el primero en ser atendido.
+
+### API
+
+```c
+
+typedef struct queue Queue;
+
+Queue *queue_new();
+void queue_append(Queue *s, void *val);
+void* queue_peek(Queue *s);
+void* queue_remove(Queue *s);
+int queue_empty(Queue *s);
+
+```
+
+las operaciones relevantes son:
+
+- `append` para agregar elementos
+- `peek` para obtener un elemento del queue **sin retirarlo**
+- `remove` para obtener un elemento del queue, retirandolo en el proceso
+
+adicional a esto, tenemos ciertas funciones apropiadas para todo tipo de contenedores:
+
+- `new` para obtener un queue nuevo
+- `empty` que regresa `true` si el queue esta vacio, `false` caso contrario.
