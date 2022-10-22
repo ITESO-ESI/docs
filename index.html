@@ -360,6 +360,12 @@
                   <li>
                     <a href="#sesion-14" class="toc-h2 toc-link" data-title="Sesión 14">Sesión 14</a>
                   </li>
+                  <li>
+                    <a href="#sesion-15" class="toc-h2 toc-link" data-title="Sesión 15">Sesión 15</a>
+                  </li>
+                  <li>
+                    <a href="#sesion-16" class="toc-h2 toc-link" data-title="Sesión 16">Sesión 16</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -1118,11 +1124,84 @@ Un contenedor es un TDA que agrupa elementos y restringe su acceso con verbos se
 <li><code>Contains (val)</code> determina si existe el elemento <code>val</code>.</li>
 </ul>
 
-<p>Notese que no se describe la implementación concreta de las funciones, unicamente define su comportamiento,
+<p>Notese que NO se describe la implementación concreta de las funciones, unicamente define su comportamiento,
 la lista podria estar implementada usando estructuras autoreferenciales, arreglos, archivos etc. etc.</p>
 
 <p>En <code>C</code> es común al definir nuevos <code>contenedores</code> que los verbos y datos relevantes sean &quot;publicos&quot; en un 
 archivo de cabecera &quot;<code>.h</code>&quot; mientras que las implementaciones concretas se encapsulen en su propio archivo fuente <code>.c</code>.</p>
+<h2 id='sesion-15'>Sesión 15</h2>
+<p>Sobre <code>contenedor</code> - Stack</p>
+<h3 id='definiciones-2'>definiciones</h3>
+<p>Un stack es un contenedor que sigue el comportamiento <code>LIFO</code></p>
+
+<p><strong>definición</strong>
+<aside class="notice">
+<code>LIFO</code> es &quot;Last in, First Out&quot;
+</aside></p>
+
+<p>que indica el orden en que obtendremos los elementos que se agreguen al contenedor, en el caso del stack
+el último elemento que se agrego (<code>push</code>) , será el elemento a obtener (<code>pop</code>)</p>
+<h3 id='api'>API</h3><div class="highlight"><pre class="highlight c tab-c"><code>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">stack</span> <span class="n">Stack</span><span class="p">;</span> <span class="c1">// Para apuntadores tipo Stack*</span>
+
+<span class="n">Stack</span> <span class="o">*</span><span class="nf">stack_new</span><span class="p">();</span>
+<span class="kt">void</span> <span class="nf">stack_push</span><span class="p">(</span><span class="n">Stack</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">val</span><span class="p">);</span>
+<span class="kt">void</span><span class="o">*</span> <span class="nf">stack_peek</span><span class="p">(</span><span class="n">Stack</span> <span class="o">*</span><span class="n">s</span><span class="p">);</span>
+<span class="kt">void</span><span class="o">*</span> <span class="nf">stack_pop</span><span class="p">(</span><span class="n">Stack</span> <span class="o">*</span><span class="n">s</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">stack_empty</span><span class="p">(</span><span class="n">Stack</span> <span class="o">*</span><span class="n">s</span><span class="p">);</span>
+
+</code></pre></div>
+<p>las operaciones relevantes son:</p>
+
+<ul>
+<li><code>push</code> para agregar elementos</li>
+<li><code>peek</code> para obtener un elemento del stack <strong>sin retirarlo</strong></li>
+<li><code>pop</code> para obtener un elemento del stack, retirandolo en el proceso</li>
+</ul>
+
+<p>adicional a esto, tenemos ciertas funciones apropiadas para todo tipo de contenedores:</p>
+
+<ul>
+<li><code>new</code> para obtener un stack nuevo</li>
+<li><code>empty</code> que regresa <code>true</code> si el stack esta vacio, <code>false</code> caso contrario.</li>
+</ul>
+<h2 id='sesion-16'>Sesión 16</h2>
+<p>Sobre <code>contenedor</code> - Queue</p>
+<h3 id='definiciones-3'>definiciones</h3>
+<p>Un queue es un contenedor que sigue el comportamiento <code>FIFO</code></p>
+
+<p><strong>definición</strong>
+<aside class="notice">
+<code>FIFO</code> es &quot;First in, First Out&quot;
+</aside></p>
+
+<p>para una queue: el primer elemento que se agrego (<code>append</code>) , será el elemento a obtener (<code>remove</code>)
+se puede visualizar como una fila común, el orden en que se forman las personas indica el orden en que serán atendidas.
+donde el primero que se formó, será el primero en ser atendido.</p>
+<h3 id='api-2'>API</h3><div class="highlight"><pre class="highlight c tab-c"><code>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">queue</span> <span class="n">Queue</span><span class="p">;</span>
+
+<span class="n">Queue</span> <span class="o">*</span><span class="nf">queue_new</span><span class="p">();</span>
+<span class="kt">void</span> <span class="nf">queue_append</span><span class="p">(</span><span class="n">Queue</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">val</span><span class="p">);</span>
+<span class="kt">void</span><span class="o">*</span> <span class="nf">queue_peek</span><span class="p">(</span><span class="n">Queue</span> <span class="o">*</span><span class="n">s</span><span class="p">);</span>
+<span class="kt">void</span><span class="o">*</span> <span class="nf">queue_remove</span><span class="p">(</span><span class="n">Queue</span> <span class="o">*</span><span class="n">s</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">queue_empty</span><span class="p">(</span><span class="n">Queue</span> <span class="o">*</span><span class="n">s</span><span class="p">);</span>
+
+</code></pre></div>
+<p>las operaciones relevantes son:</p>
+
+<ul>
+<li><code>append</code> para agregar elementos</li>
+<li><code>peek</code> para obtener un elemento del queue <strong>sin retirarlo</strong></li>
+<li><code>remove</code> para obtener un elemento del queue, retirandolo en el proceso</li>
+</ul>
+
+<p>adicional a esto, tenemos ciertas funciones apropiadas para todo tipo de contenedores:</p>
+
+<ul>
+<li><code>new</code> para obtener un queue nuevo</li>
+<li><code>empty</code> que regresa <code>true</code> si el queue esta vacio, <code>false</code> caso contrario.</li>
+</ul>
 <h1 id='ejercicios'>Ejercicios</h1><h1 id='herramientas'>Herramientas</h1><h2 id='editores-amp-ides'>Editores &amp; IDEs</h2>
 <p><a href="https://www.jetbrains.com/clion/">CLion</a> es el IDE oficial del curso. Unicamente se proporcionara soporte institucional a CLion.
 <aside class="notice"> Recuerden solicitar su licencia gratuita por estudiantes usando su correo institucional.</aside></p>
